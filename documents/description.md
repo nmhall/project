@@ -67,3 +67,10 @@ syntactic, so if we have good compile time error detection
 it should be easy to diagnose issues with programs.
 
 ## Example computations
+An example of a low-IQ unit computation might be "if there is
+an enemy unit within my attack range, attack it and stand still".
+An example of a higher-IQ unit computation might be "if there is
+an enemy unit within my attack range and no other enemy units
+within x of it, and its health is lower than mine, attack it and
+move toward it."
+Each of these would be conditionals in some unit's decision engine.
