@@ -44,7 +44,26 @@ about our language.
 
 I think one way to describe the design of the DSL
 in one sentence would be as a logic engine for unit
-decisions in a RTS game. 
+decisions in a RTS game. When a program runs the game engine
+takes the decision tree described by that program and
+plays out those decisions in real time. The "input" is
+the program that the user wrote, more specifically the
+list of conditionals that the user provided, as well
+as the game state provided by the game engine. The output
+is a decision about where to move the unit.
 
+As we've mentioned before, the main control flow that we're
+envisioning is essentially a glorified switch case, where
+units go through their predefined options and make a decision
+based on the state of the game.
+
+The main things that could go wrong are syntax errors. We want
+every valid program to be runnable (so no runtime errors),
+although we hope that the outcome will not be completely
+forseeable by the user at compile time. We might force
+users to number their lines to keep the concept of IQ
+transparent. Other than that, most of the errors will be
+syntactic, so if we have good compile time error detection
+it should be easy to diagnose issues with programs. 
 
 ## Example computations
