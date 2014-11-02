@@ -64,6 +64,6 @@ forseeable by the user at compile time. We might force
 users to number their lines to keep the concept of IQ
 transparent. Other than that, most of the errors will be
 syntactic, so if we have good compile time error detection
-it should be easy to diagnose issues with programs. 
+it should be easy to diagnose issues with programs.
 
 ## Example computations
