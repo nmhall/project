@@ -33,5 +33,3 @@ For the majority of the work, especially the design, we plan to work together.
 Alex will primarily focus on the game engine, and Nathan will focus on the DSL
 syntax and parsing. We will meet multiple times a week to ensure that both partners
 are contributing significantly to all aspects of the project.
-
-*If applicable*
