@@ -22,11 +22,11 @@ will take, and we are aware that we should focus on the actual DSL for this reas
 We plan to make this as an external DSL, and anticipate a large majority of the work
 going into designing the syntax.
 Our planned schedule will be:
-  ++ 11/10: Fully specified language syntax
-  ++ 11/17: Proof of concept for game engine
-  ++ 11/24: Parser for AI syntax, hope for basic programs running
-  ++ 12/01: Be able to actually run a game
-  ++ 12/08: Finished product
+  + 11/10: Fully specified language syntax
+  + 11/17: Proof of concept for game engine
+  + 11/24: Parser for AI syntax, hope for basic programs running
+  + 12/01: Be able to actually run a game
+  + 12/08: Finished product
 
 ## Teamwork plan 
 For the majority of the work, especially the design, we plan to work together.
