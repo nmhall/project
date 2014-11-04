@@ -1,0 +1,45 @@
+Example syntax:
+
+Grouping {
+	conditional: choice
+	conditional: choice
+	default: choice
+}
+
+Modes of Operation
+
+Grouping:
+	- None (default)
+	- Isolation
+	- Loose Formation
+	- Tight Formation
+
+	- Conditionals:
+		1. Enemy Proximity
+		2. Ally Proximity
+
+Movement based on enemies
+	- Toward (default)
+	- Hold ground
+	- Away
+
+	- Conditionals:
+		1. Number of enemies
+		2. Number of allies
+		3. Current health
+		4. Enemy strength
+		5. Enemy Proximity
+		6. Ally Proximity
+
+Target Selection
+	- Random (default)
+	- Lowest HP
+	- Closest
+	- Strongest
+
+	- Conditionals:
+		1. Enemy health threshold
+		2. Enenmy strength threshold
+		3. Number of enemies
+		4. Number of allies
+		5. Enemy Proximity
