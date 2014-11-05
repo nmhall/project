@@ -1,5 +1,5 @@
 # Nov. 4th Critique
-## Ari
+## Ari (critiquing Nathan)
 ### What are one or more things that you like about this project? What's exciting?
 I think you guys have a great idea. What I think is really cool is that you've also managed to differentiate it from some of the existing projects out there. As you mention, you intend to use a novel syntax, since your goal is not to teach people to program. I think a good way to capitalize on this would be to aim for syntax that facilitates writing AI; since the goal of the syntax is to describe AI, it should hopefully be good at it, perhaps going beyond the trivial.
 I also really like the IQ idea. Limitations breed creativity, so this should be a good way to really constrain the players. It could also in the long term be used to facilitate difficulties/rankings, that is you could have the 5 IQ tier, 10 IQ tier, etc, where presumably higher IQ would lead to better AI design skills standing out more.
@@ -48,3 +48,35 @@ Check your spelling. "This domain us useful for having fun!"
 I'm a little concerned about your division of labor plan - while DSL vs Engine seems like a reasonable dividing line, this is a DSLs class, so it feels like you should each be taking a fair share of that responsibility. Perhaps there is another way to divide the work. Maybe one person focuses on Syntax -> IR, and the other on IR -> Semantics, then you both work on the game engine that these semantics hook into together.
 
 In terms of your Language_Syntax_Thoughts - (a) put a file extension on this. Probably .txt. (b) Move it to your documents. (c) Why do different commands get different conditionals that are allowed? Maybe I want formation based on enemy health (if enemies are weak, we can spread out and attack them 1v1 instead of in a formation), or target selection based on ally proximity (I'm an ranged unit, so if there's a melee class ally close to me, he'll probably be handling the closest enemy and I can fire at the second closest one instead), etc. Restricting these seems like you're already cutting out potential creativity.
+
+
+## Tyler (critiquing Alex)
+### What are one or more things that you like about this project? What's exciting?
+I really like the idea of making a game that is based on IQ. There is an Android game that one of my past roommates (Luke St. Marie) used to play a lot that was similar to your idea, but it was a dungeon crawler instead of an RTS game. It was similar in that you didn't actually play the game, instead you made a simple AI to get through each level. It was also similar in that as you levelled up, you unlocked more slots for more advanced conditionals, or more advanced commands to put in each slot (i.e. "attack if my health is higher" instead of just "attack"). I'll ask him what it was, and let you know so you can try it out (pester me if I haven't done this soon).
+
+I'm excited to try playing your game! Hopefully it's fun.
+
+### What's the balance of language design vs sheer programming / engineering in this project?
+I think this is a place where you guys should be careful. It would be really easy to get caught up in taking a long time to build a functioning game engine. I think you guys should actually not worry too much about the game engine side of things. Spring is cool, but it could be very time consuming to build a game engine to the point where you're spending as much time on that as you are on the language itself. I think you might be better off focusing on a very simple engine (potentially even text based -- There are some very fun text-based games out there), and making the difficulty and fun in your game come from the clever AI design part, rather than the graphics.
+
+### How can the project maximize the time spent on language design? How to focus on interesting, possibly new ideas?
+You have two people working on this project, so maybe you actually have time for the game engine. I like that it's an RTS, so there are lots of established ideas out there, but not necessarily from an AI perspective. For example, I don't know of many AIs that spread units to avoid splash damage.
+
+I think many AIs are implemented on a per-unit level, and it sounds like you guys might be leaning that way, but it could be cool if you also have a per-army level AI that does things like send ranged units to fight melee units or spread to avoid splash damage, or even surrender at key times.
+
+Overall, I think you guys should make sure to leave significant time to just discuss rules that can be created in your AI, and you should try to design your syntax so that it is easy for you to add new actions/conditions/etc. as you move on in the project if one of you thinks of something super cool that you want to add. Basically, the space of rules for RTS AIs is massive. Your DSL won't cover it all at first, and you should make sure that over time it could eventually expand to cover it all -- Even if that means becoming Turing complete, if it is still implemented in an AI manner I think that is ok.
+
+### What are some interesting language design questions that the work will have to answer? In other words, what are the design challenges? Which design problems' solutions are you looking forward to hearing about at the end of the project?
+Given the massive space of RTS AI, I think one of the biggest design challenges will be choosing a subset of that space that is manageable to code in a 5-week timeframe, but also fun to play, and doesn't leave the user feeling too limited in terms of what they are capable of doing.
+
+I also think it will be challenging to balance the game. "What sort of instruction is worth how much IQ, and how do we make it so that some instructions aren't completely OP?" is a question that I am very interested in seeing how you solve. I am also curious to see how many 5 IQ units it takes to kill a 10 IQ unit, when both are programmed well. Is the goal for it to be 2 5 IQ units to a 10 IQ unit, or does the value of IQ scale non-linearly?
+
+### What are the primitives in this language?
+I suppose the primitives in your language would be *actions* and *conditions*, so that you can always write a line that does something like 
+```if (condition1, condition2, ...) then action1, action2, ....```
+Overall, your skeleton syntax seems to be good -- Movement, targetting and grouping are the simplest things I come up with when I think of an RTS AI. More advanced features might include spell-casting (or using abilities in general).
+
+### Do you know of any libraries, languages, or projects that might help this project?
+As I mentioned above, there is an Android game that operates on a similar IQ principle, that I will try to get you guys the name of. Aside from that, you seem to have done your research well into game engines and languages.
+
+You might also want to take a look at [Untrusted](http://alexnisnevich.github.io/untrusted/) as an example of a fun game with an exceedingly simple game engine, to keep in mind minimizing the work on the game engine and maximizing the work on the DSL. Don't spend too much time playing though... Or do, and call it gruelling classwork :p
