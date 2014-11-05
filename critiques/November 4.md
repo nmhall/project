@@ -15,6 +15,7 @@ As you've described it, this project is very heavy on the engineering side. Buil
     game needs to reward cleverness).
   + Being efficient with commands for low-IQ units and being clever with commands
     for high-IQ units should both significantly improve the AI.
+
 Most of these seem to center around the functionality of your language; what a program is capable of. What goals do you have in terms of how people might use your language? Here's some thoughts:
   + Trivial AIs are trivially implementable (i.e. an AI that just shoots at things in range should be trivial to code)
   + Users can tell why a high IQ unit is better than a low IQ one (i.e. the code is descriptive enough that they can look at two similar units and say, 'aha! This does everything that one does PLUS ___')
@@ -37,7 +38,7 @@ Looking at your early syntax thoughts, your primitives are units, relations (suc
 ### Do you know of any libraries, languages, or projects that might help this project?
 As I mentioned above, I think it would be worthwile to see if any of the existing games are simple enough (/have CYO scenario builders) that they could serve as a host for your project.
 
-It may take a lot of effort to understand, but the Robot Scripting Language (RSL) and game engine for [Robot Battle](www.robotbattle.com) are [open source](http://dev.robotbattle.com/setup_n.html), perhaps you could modify their game engine and/or use RSL as a host language. But again, that may end up being more complex than starting from scratch. But there are also better written/maintained/documented game engines out there, I think you should spend some time researching them and finding one that would be easily adaptable to your game.
+It may take a lot of effort to understand, but the Robot Scripting Language (RSL) and game engine for [Robot Battle](http://www.robotbattle.com) are [open source](http://dev.robotbattle.com/setup_n.html), perhaps you could modify their game engine and/or use RSL as a host language. But again, that may end up being more complex than starting from scratch. But there are also better written/maintained/documented game engines out there, I think you should spend some time researching them and finding one that would be easily adaptable to your game.
 
 ### Other thoughts
 One idea that I had for IQ that could also be interesting is to make different functions that have different "costs" - i.e. maybe "is there an enemy in front of me" costs 1 IQ, and "turn until facing an enemy" costs 3 IQ.
