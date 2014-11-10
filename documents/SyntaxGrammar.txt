@@ -31,10 +31,8 @@ extraConditions:= \'93 and \'93, condition, [extraConditions]\
 condition:= enemyProximity | allyProximity | myHealth | enemyIQ | enemyHealth | enemyRange\
 \
 enemyProximity:= \'93there are \'93, number, \'93 enemies \'94, proximity\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
-\cf0 allyProximity:= \'93there are \'93, number, \'93 allies \'94, proximity\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
-\cf0 proximity:= \'93adjacent\'94 | \'93close\'94 | \'93around\'94\
+allyProximity:= \'93there are \'93, number, \'93 allies \'94, proximity\
+proximity:= \'93adjacent\'94 | \'93close\'94 | \'93around\'94\
 \
 myHealth:= \'93health > \'93, percentage\
 \
