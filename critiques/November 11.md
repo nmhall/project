@@ -16,6 +16,7 @@ EBNF snobbery: use " ;" after each rule.
     * I'm not sure I get formations. What happens if I have two units in tight formation, but one is planning to move towards, and one move away? Or if each unit represents multiple people, what do formations do? Perhaps giving more clear names like "offensive formation" "defensive formation" etc. would help in this case.
 
 In short, it seems like a lot of your grammar is very restrictive. It looks very organized and should be very clean to parse, which from a scoping perspective is great. From a design/player perspective, it looks like your grammar could be a bit more modular. In other words, you could pull out unit descriptors like "smartest", "farthest", etc. and then have something like
+```
   movement := ("move", direction, unit_description) | “hold ground” ;
   target := "target", unit_description ;
   direction := "away", "toward" ;
@@ -24,6 +25,7 @@ In short, it seems like a lot of your grammar is very restrictive. It looks very
   ability_qualifier := relative, ability ;
   ability := "health" | "distance" | "intelligence" | "range"
   relative := "highest" | "lowest" ;
+```
 By breaking down this far, you get much easier potential future extension. Relations could be extended to include middle, or perhaps 2nd highest, etc. New unit abilities like "power" would be trivial to add to the parser too. I'm a huge fan of modularity, and breaking down your language as far as possible, re-using applicable ideas where possible (notice that this was trivial to tack on to both the movement and targeting clause, and thus resolves the movement ambiguity I discussed earlier).
 
 Nice work having such a well-specified grammar!
