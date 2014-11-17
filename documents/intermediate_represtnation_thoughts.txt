@@ -1,0 +1,13 @@
+The general idea here is to adopt the idea of case classes into a Java object representing the instructions for a unit.
+Each of the three categories will have an ordered list of rules, each composed of a conditional and an action.
+Conditionals are sets of conditions, all of which need to be met in order to match the conditional.
+The different things that you can condition on in our language will dictate the different conditions put into any rule,
+probably as children of an abstract condition class. Since our conditions also allow you to say either greater than
+or less than and a number, we will need to include these as fields in the condition object.
+A single unit's IR is then an object with three behavior definitions, each of which is a list of Rules. A Rule is a set of
+Conditions plus an Action, and a Condition is chosen from a finite set as defined by our syntax in conjunction with
+a comparison operator and a value.
+This object can then be serialized as JSON and then reconstructed in the Spring AI class. This class will, for each unit,
+attempt to match each Rule in order, using the Conditions type and its fields to determine whether the in-game information
+matches the user-provided description. Since there has to be a default for each behavior, after matching the AI will always
+know the actions the unit should take. Actual implementation of these actions will exist inside the Spring AI class.
