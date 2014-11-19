@@ -1,4 +1,4 @@
-# Nov. 4th Critique
+# Nov. 18th Critique
 ## Ari
 
 I think my big comment for this week is you guys should keep your code in the repo. That's why you have a repo. Your design and implementation document mentions that you have some work done, but it's hard to help without seeing that work, and most of what you write about we've already discussed.
@@ -10,3 +10,7 @@ It's not super relevant to your DSL, but for files like your design/implementati
   * Your DSL compiler
   * A special Spring level file of some sort?
 And then they run your DSL compiler on some code, generating an AI file, and then they run Spring with the level and two AI files? It'd be nice to have these steps enumerated somewhere.
+
+## Tyler
+
+As per advice from Gruver, I am saving my critique hours on this week and doing a double-long critique next week when there will many things to look at as opposed to this week when there are very few things to look at.
