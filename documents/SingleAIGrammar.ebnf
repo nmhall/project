@@ -1,0 +1,57 @@
+grammar(AI) = formation movement targeting;
+
+formationDef = 'Formation' '{' [formationRules] '}';
+
+movementDef = 'Movement' '{' [movementRules] '}';
+
+targetingDef = 'Targeting' '{' [targetingRules] '}';
+
+formationRules = [extraFormationRules] 'default:' formation;
+
+movementRules = [extraMovementRules] 'default:' movement;
+
+targetingRules = [extraTargetingRules] 'default:' targeting;
+
+extraFormationRules = formationRule [extraFormationRules];
+
+extraMovementRules = movementRule [extraMovementRules];
+
+extraTargetingRules = targetingRule [extraTargetingRules];
+
+formationRule = conditional ':' formation;
+
+movementRule = conditional ':' movement;
+
+targetingRule = conditional ':' targeting;
+
+formation = 'tight formation' | 'loose formation' | 'isolation';
+
+movement = 'move toward' | 'move away' | 'hold ground';
+
+targeting = 'target closest' | 'target farthest' | 'target lowest health'
+            | 'target smartest' | 'target highest range';
+
+conditional = 'if' condition [extraConditions];
+
+extraConditions = ' and ' condition [extraConditions];
+
+condition = enemyProximity | allyProximity | myHealth | enemyIQ
+            | enemyHealth | enemyRange;
+
+enemyProximity = 'there are ' number ' enemies ' proximity;
+
+allyProximity = 'there are ' number ' allies ' proximity;
+
+proximity = 'adjacent' | 'close' | 'around';
+
+myHealth = 'health' comparison number;
+
+enemyIQ = 'a nearby enemy has IQ ' comparison number;
+
+enemyHealth = 'a nearby enemy has health ' comparison number;
+
+enemyRange = 'a nearby enemy has range ' comparison number;
+
+comparison = '<' | '>';
+
+number = /[0-9]+/;
