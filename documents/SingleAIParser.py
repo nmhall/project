@@ -15,7 +15,7 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 from grako.parsing import graken, Parser
 
 
-__version__ = (2014, 11, 22, 20, 58, 30, 5)
+__version__ = (2014, 11, 22, 22, 28, 35, 5)
 
 __all__ = [
     'SingleAIGrammarParser',
@@ -32,11 +32,11 @@ class SingleAIGrammarParser(Parser):
             **kwargs
         )
 
-    @graken('AI')
-    def _grammar_(self):
-        self._formation_()
-        self._movement_()
-        self._targeting_()
+    @graken()
+    def _singleAI_(self):
+        self._formationDef_()
+        self._movementDef_()
+        self._targetingDef_()
 
     @graken()
     def _formationDef_(self):
@@ -251,7 +251,7 @@ class SingleAIGrammarParser(Parser):
 
 
 class SingleAIGrammarSemantics(object):
-    def grammar(self, ast):
+    def singleAI(self, ast):
         return ast
 
     def formationDef(self, ast):

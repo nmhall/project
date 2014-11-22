@@ -1,4 +1,4 @@
-grammar(AI) = formation movement targeting;
+singleAI = formationDef movementDef targetingDef;
 
 formationDef = 'Formation' '{' [formationRules] '}';
 
