@@ -1,0 +1,30 @@
+Short: 3 IQ
+Int: 6 IQ
+Double: 10 IQ
+
+You can use as many rules for a given unit as you have IQ. If you leave a
+category completely empty, it will default to pretty bad behavior.
+
+A rule looks like either
+default: command
+OR
+Conditional: command
+
+The first rule in each category must be default, and the rest must be
+conditionals
+
+Conditionals other than default look like "if" <conditions>:
+You can string as many conditions as you want together using and (but not or)
+
+Formation commands: tight formation, loose formation, isolation
+Movement commands: move toward, move away, hold ground
+Targeting commands: target closest, target farthest, target lowest health,
+                    target smartest, target highest range
+
+Conditions:
+  there are X enemies adjacent/close/around
+  there are X allies adjacent/close/around
+  health >/< X
+  a nearby enemy has IQ >/< X
+  a nearby enemy has health >/< X
+  a nearby enemy has range >/< X
