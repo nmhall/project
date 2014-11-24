@@ -1,0 +1,72 @@
+AST:
+AST({u'mediumAI': AST({u'singleAI': AST({u'targetingDef': AST({u'targetingRules': None}), u'formationDef': AST({u'formationRules': None}), u'movementDef': AST({u'movementRules': None})})}), u'dumbAI': AST({u'singleAI': AST({u'targetingDef': AST({u'targetingRules': AST({u'defaultTargeting': u'target lowest health', u'extraTargetingRules': None})}), u'formationDef': AST({u'formationRules': AST({u'extraFormationRules': None, u'defaultFormation': u'tight formation'})}), u'movementDef': AST({u'movementRules': AST({u'extraMovementRules': AST({u'movementRule': AST({u'conditional': AST({u'condition': AST({u'enemyRange': None, u'allyProximity': None, u'myHealth': None, u'enemyProximity': AST({u'proximity': u'adjacent', u'number': u'3'}), u'enemyHealth': None, u'enemyIQ': None})}), u'movement': u'move away'})}), u'defaultMovement': u'hold ground'})})})}), u'smartAI': AST({u'singleAI': AST({u'targetingDef': AST({u'targetingRules': None}), u'formationDef': AST({u'formationRules': None}), u'movementDef': AST({u'movementRules': None})})})})
+
+JSON:
+{
+  "dumbAI": {
+    "singleAI": {
+      "formationDef": {
+        "formationRules": {
+          "defaultFormation": "tight formation", 
+          "extraFormationRules": null
+        }
+      }, 
+      "movementDef": {
+        "movementRules": {
+          "extraMovementRules": {
+            "movementRule": {
+              "conditional": {
+                "condition": {
+                  "enemyProximity": {
+                    "number": "3", 
+                    "proximity": "adjacent"
+                  }, 
+                  "allyProximity": null, 
+                  "myHealth": null, 
+                  "enemyIQ": null, 
+                  "enemyHealth": null, 
+                  "enemyRange": null
+                }
+              }, 
+              "movement": "move away"
+            }
+          }, 
+          "defaultMovement": "hold ground"
+        }
+      }, 
+      "targetingDef": {
+        "targetingRules": {
+          "defaultTargeting": "target lowest health", 
+          "extraTargetingRules": null
+        }
+      }
+    }
+  }, 
+  "mediumAI": {
+    "singleAI": {
+      "formationDef": {
+        "formationRules": null
+      }, 
+      "movementDef": {
+        "movementRules": null
+      }, 
+      "targetingDef": {
+        "targetingRules": null
+      }
+    }
+  }, 
+  "smartAI": {
+    "singleAI": {
+      "formationDef": {
+        "formationRules": null
+      }, 
+      "movementDef": {
+        "movementRules": null
+      }, 
+      "targetingDef": {
+        "targetingRules": null
+      }
+    }
+  }
+}
+
