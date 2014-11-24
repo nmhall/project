@@ -1,0 +1,15 @@
+Short{
+Formation{}
+Movement{}
+Targeting{}
+}
+Int{
+Formation{}
+Movement{}
+Targeting{}
+}
+Double{
+Formation{}
+Movement{}
+Targeting{}
+}
