@@ -15,7 +15,7 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 from grako.parsing import graken, Parser
 
 
-__version__ = (2014, 11, 22, 22, 28, 35, 5)
+__version__ = (2014, 11, 24, 5, 37, 16, 0)
 
 __all__ = [
     'SingleAIGrammarParser',
@@ -33,10 +33,71 @@ class SingleAIGrammarParser(Parser):
         )
 
     @graken()
+    def _allAIs_(self):
+        self._dumbAI_()
+        self.ast['dumbAI'] = self.last_node
+        self._mediumAI_()
+        self.ast['mediumAI'] = self.last_node
+        self._smartAI_()
+        self.ast['smartAI'] = self.last_node
+
+        self.ast._define(
+            ['dumbAI', 'mediumAI', 'smartAI'],
+            []
+        )
+
+    @graken()
+    def _dumbAI_(self):
+        self._token('Short')
+        self._token('{')
+        self._singleAI_()
+        self.ast['singleAI'] = self.last_node
+        self._token('}')
+
+        self.ast._define(
+            ['singleAI'],
+            []
+        )
+
+    @graken()
+    def _mediumAI_(self):
+        self._token('Int')
+        self._token('{')
+        self._singleAI_()
+        self.ast['singleAI'] = self.last_node
+        self._token('}')
+
+        self.ast._define(
+            ['singleAI'],
+            []
+        )
+
+    @graken()
+    def _smartAI_(self):
+        self._token('Double')
+        self._token('{')
+        self._singleAI_()
+        self.ast['singleAI'] = self.last_node
+        self._token('}')
+
+        self.ast._define(
+            ['singleAI'],
+            []
+        )
+
+    @graken()
     def _singleAI_(self):
         self._formationDef_()
+        self.ast['formationDef'] = self.last_node
         self._movementDef_()
+        self.ast['movementDef'] = self.last_node
         self._targetingDef_()
+        self.ast['targetingDef'] = self.last_node
+
+        self.ast._define(
+            ['formationDef', 'movementDef', 'targetingDef'],
+            []
+        )
 
     @graken()
     def _formationDef_(self):
@@ -44,7 +105,13 @@ class SingleAIGrammarParser(Parser):
         self._token('{')
         with self._optional():
             self._formationRules_()
+            self.ast['formationRules'] = self.last_node
         self._token('}')
+
+        self.ast._define(
+            ['formationRules'],
+            []
+        )
 
     @graken()
     def _movementDef_(self):
@@ -52,7 +119,13 @@ class SingleAIGrammarParser(Parser):
         self._token('{')
         with self._optional():
             self._movementRules_()
+            self.ast['movementRules'] = self.last_node
         self._token('}')
+
+        self.ast._define(
+            ['movementRules'],
+            []
+        )
 
     @graken()
     def _targetingDef_(self):
@@ -60,64 +133,133 @@ class SingleAIGrammarParser(Parser):
         self._token('{')
         with self._optional():
             self._targetingRules_()
+            self.ast['targetingRules'] = self.last_node
         self._token('}')
+
+        self.ast._define(
+            ['targetingRules'],
+            []
+        )
 
     @graken()
     def _formationRules_(self):
         with self._optional():
             self._extraFormationRules_()
+            self.ast['extraFormationRules'] = self.last_node
         self._token('default:')
         self._formation_()
+        self.ast['defaultFormation'] = self.last_node
+
+        self.ast._define(
+            ['extraFormationRules', 'defaultFormation'],
+            []
+        )
 
     @graken()
     def _movementRules_(self):
         with self._optional():
             self._extraMovementRules_()
+            self.ast['extraMovementRules'] = self.last_node
         self._token('default:')
         self._movement_()
+        self.ast['defaultMovement'] = self.last_node
+
+        self.ast._define(
+            ['extraMovementRules', 'defaultMovement'],
+            []
+        )
 
     @graken()
     def _targetingRules_(self):
         with self._optional():
             self._extraTargetingRules_()
+            self.ast['extraTargetingRules'] = self.last_node
         self._token('default:')
         self._targeting_()
+        self.ast['defaultTargeting'] = self.last_node
+
+        self.ast._define(
+            ['extraTargetingRules', 'defaultTargeting'],
+            []
+        )
 
     @graken()
     def _extraFormationRules_(self):
-        self._formationRule_()
-        with self._optional():
-            self._extraFormationRules_()
+
+        def block0():
+            self._formationRule_()
+            self.ast['formationRule'] = self.last_node
+        self._positive_closure(block0)
+
+        self.ast._define(
+            ['formationRule'],
+            []
+        )
 
     @graken()
     def _extraMovementRules_(self):
-        self._movementRule_()
-        with self._optional():
-            self._extraMovementRules_()
+
+        def block0():
+            self._movementRule_()
+            self.ast['movementRule'] = self.last_node
+        self._positive_closure(block0)
+
+        self.ast._define(
+            ['movementRule'],
+            []
+        )
 
     @graken()
     def _extraTargetingRules_(self):
-        self._targetingRule_()
-        with self._optional():
-            self._extraTargetingRules_()
+
+        def block0():
+            self._targetingRule_()
+            self.ast['targetingRule'] = self.last_node
+        self._positive_closure(block0)
+
+        self.ast._define(
+            ['targetingRule'],
+            []
+        )
 
     @graken()
     def _formationRule_(self):
         self._conditional_()
+        self.ast['conditional'] = self.last_node
         self._token(':')
         self._formation_()
+        self.ast['formation'] = self.last_node
+
+        self.ast._define(
+            ['conditional', 'formation'],
+            []
+        )
 
     @graken()
     def _movementRule_(self):
         self._conditional_()
+        self.ast['conditional'] = self.last_node
         self._token(':')
         self._movement_()
+        self.ast['movement'] = self.last_node
+
+        self.ast._define(
+            ['conditional', 'movement'],
+            []
+        )
 
     @graken()
     def _targetingRule_(self):
         self._conditional_()
+        self.ast['conditional'] = self.last_node
         self._token(':')
         self._targeting_()
+        self.ast['targeting'] = self.last_node
+
+        self.ast._define(
+            ['conditional', 'targeting'],
+            []
+        )
 
     @graken()
     def _formation_(self):
@@ -160,46 +302,83 @@ class SingleAIGrammarParser(Parser):
     def _conditional_(self):
         self._token('if')
         self._condition_()
+        self.ast['condition'] = self.last_node
         with self._optional():
             self._extraConditions_()
 
+        self.ast._define(
+            ['condition'],
+            []
+        )
+
     @graken()
     def _extraConditions_(self):
-        self._token(' and ')
+        self._token('and')
         self._condition_()
+        self.ast['condition'] = self.last_node
         with self._optional():
             self._extraConditions_()
+
+        self.ast._define(
+            ['condition'],
+            []
+        )
 
     @graken()
     def _condition_(self):
         with self._choice():
             with self._option():
                 self._enemyProximity_()
+                self.ast['enemyProximity'] = self.last_node
             with self._option():
                 self._allyProximity_()
+                self.ast['allyProximity'] = self.last_node
             with self._option():
                 self._myHealth_()
+                self.ast['myHealth'] = self.last_node
             with self._option():
                 self._enemyIQ_()
+                self.ast['enemyIQ'] = self.last_node
             with self._option():
                 self._enemyHealth_()
+                self.ast['enemyHealth'] = self.last_node
             with self._option():
                 self._enemyRange_()
+                self.ast['enemyRange'] = self.last_node
             self._error('no available options')
+
+        self.ast._define(
+            ['enemyProximity', 'allyProximity', 'myHealth', 'enemyIQ', 'enemyHealth', 'enemyRange'],
+            []
+        )
 
     @graken()
     def _enemyProximity_(self):
-        self._token('there are ')
+        self._token('there are')
         self._number_()
-        self._token(' enemies ')
+        self.ast['number'] = self.last_node
+        self._token('enemies')
         self._proximity_()
+        self.ast['proximity'] = self.last_node
+
+        self.ast._define(
+            ['number', 'proximity'],
+            []
+        )
 
     @graken()
     def _allyProximity_(self):
-        self._token('there are ')
+        self._token('there are')
         self._number_()
-        self._token(' allies ')
+        self.ast['number'] = self.last_node
+        self._token('allies')
         self._proximity_()
+        self.ast['proximity'] = self.last_node
+
+        self.ast._define(
+            ['number', 'proximity'],
+            []
+        )
 
     @graken()
     def _proximity_(self):
@@ -216,25 +395,53 @@ class SingleAIGrammarParser(Parser):
     def _myHealth_(self):
         self._token('health')
         self._comparison_()
+        self.ast['comparison'] = self.last_node
         self._number_()
+        self.ast['number'] = self.last_node
+
+        self.ast._define(
+            ['comparison', 'number'],
+            []
+        )
 
     @graken()
     def _enemyIQ_(self):
-        self._token('a nearby enemy has IQ ')
+        self._token('a nearby enemy has IQ')
         self._comparison_()
+        self.ast['comparison'] = self.last_node
         self._number_()
+        self.ast['number'] = self.last_node
+
+        self.ast._define(
+            ['comparison', 'number'],
+            []
+        )
 
     @graken()
     def _enemyHealth_(self):
-        self._token('a nearby enemy has health ')
+        self._token('a nearby enemy has health')
         self._comparison_()
+        self.ast['comparison'] = self.last_node
         self._number_()
+        self.ast['number'] = self.last_node
+
+        self.ast._define(
+            ['comparison', 'number'],
+            []
+        )
 
     @graken()
     def _enemyRange_(self):
-        self._token('a nearby enemy has range ')
+        self._token('a nearby enemy has range')
         self._comparison_()
+        self.ast['comparison'] = self.last_node
         self._number_()
+        self.ast['number'] = self.last_node
+
+        self.ast._define(
+            ['comparison', 'number'],
+            []
+        )
 
     @graken()
     def _comparison_(self):
@@ -251,6 +458,18 @@ class SingleAIGrammarParser(Parser):
 
 
 class SingleAIGrammarSemantics(object):
+    def allAIs(self, ast):
+        return ast
+
+    def dumbAI(self, ast):
+        return ast
+
+    def mediumAI(self, ast):
+        return ast
+
+    def smartAI(self, ast):
+        return ast
+
     def singleAI(self, ast):
         return ast
 

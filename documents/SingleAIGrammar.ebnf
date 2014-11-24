@@ -1,28 +1,37 @@
-singleAI = formationDef movementDef targetingDef;
+allAIs = dumbAI:dumbAI mediumAI:mediumAI smartAI:smartAI;
 
-formationDef = 'Formation' '{' [formationRules] '}';
+dumbAI = 'Short' '{' singleAI:singleAI '}';
+mediumAI = 'Int' '{' singleAI:singleAI '}';
+smartAI = 'Double' '{' singleAI:singleAI '}';
 
-movementDef = 'Movement' '{' [movementRules] '}';
+singleAI = formationDef:formationDef movementDef:movementDef targetingDef:targetingDef;
 
-targetingDef = 'Targeting' '{' [targetingRules] '}';
+formationDef = 'Formation' '{' [formationRules:formationRules] '}';
 
-formationRules = [extraFormationRules] 'default:' formation;
+movementDef = 'Movement' '{' [movementRules:movementRules] '}';
 
-movementRules = [extraMovementRules] 'default:' movement;
+targetingDef = 'Targeting' '{' [targetingRules:targetingRules] '}';
 
-targetingRules = [extraTargetingRules] 'default:' targeting;
+formationRules = [extraFormationRules:extraFormationRules] 'default:'
+                 defaultFormation:formation;
 
-extraFormationRules = formationRule [extraFormationRules];
+movementRules = [extraMovementRules:extraMovementRules] 'default:'
+                defaultMovement:movement;
 
-extraMovementRules = movementRule [extraMovementRules];
+targetingRules = [extraTargetingRules:extraTargetingRules] 'default:'
+                 defaultTargeting:targeting;
 
-extraTargetingRules = targetingRule [extraTargetingRules];
+extraFormationRules = {formationRule:formationRule}+;
 
-formationRule = conditional ':' formation;
+extraMovementRules = {movementRule:movementRule}+;
 
-movementRule = conditional ':' movement;
+extraTargetingRules = {targetingRule:targetingRule}+;
 
-targetingRule = conditional ':' targeting;
+formationRule = conditional:conditional ':' formation:formation;
+
+movementRule = conditional:conditional ':' movement:movement;
+
+targetingRule = conditional:conditional ':' targeting:targeting;
 
 formation = 'tight formation' | 'loose formation' | 'isolation';
 
@@ -31,26 +40,27 @@ movement = 'move toward' | 'move away' | 'hold ground';
 targeting = 'target closest' | 'target farthest' | 'target lowest health'
             | 'target smartest' | 'target highest range';
 
-conditional = 'if' condition [extraConditions];
+conditional = 'if' condition:condition [extraConditions];
 
-extraConditions = ' and ' condition [extraConditions];
+extraConditions = 'and' condition:condition [extraConditions];
 
-condition = enemyProximity | allyProximity | myHealth | enemyIQ
-            | enemyHealth | enemyRange;
+condition = enemyProximity:enemyProximity | allyProximity:allyProximity |
+            myHealth:myHealth | enemyIQ:enemyIQ | enemyHealth:enemyHealth |
+            enemyRange:enemyRange;
 
-enemyProximity = 'there are ' number ' enemies ' proximity;
+enemyProximity = 'there are' number:number 'enemies' proximity:proximity;
 
-allyProximity = 'there are ' number ' allies ' proximity;
+allyProximity = 'there are' number:number 'allies' proximity:proximity;
 
 proximity = 'adjacent' | 'close' | 'around';
 
-myHealth = 'health' comparison number;
+myHealth = 'health' comparison:comparison number:number;
 
-enemyIQ = 'a nearby enemy has IQ ' comparison number;
+enemyIQ = 'a nearby enemy has IQ' comparison:comparison number:number;
 
-enemyHealth = 'a nearby enemy has health ' comparison number;
+enemyHealth = 'a nearby enemy has health' comparison:comparison number:number;
 
-enemyRange = 'a nearby enemy has range ' comparison number;
+enemyRange = 'a nearby enemy has range' comparison:comparison number:number;
 
 comparison = '<' | '>';
 
