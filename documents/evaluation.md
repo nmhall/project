@@ -12,10 +12,11 @@ generates parsers using Grako.
 With regard to things that need to be improved, we received some good feedback on the grammar from user testing
 and we will be implementing those shortly. Most important is probably removing the requirement for a default,
 which turned out to not make a ton of sense. Additionally, we need to add post-parsing checks on the AST to enforce
-the rules on number of commands to each type of unit.Obviously, the way users create AIs could be improved over
+the rules on number of commands to each type of unit. Obviously, the way users create AIs could be improved over
 simply typing into a .txt file, but that would probably take a lot of tangential effort to make a nice user
-interface. We're also not huge fans of having to go through JSON, so the implementation could probably be simplified
-in some way to avoid that, but such is life.
+interface, which isn't particularly relevant to the class (or particularly interesting). We're also not huge fans 
+of having to go through JSON, which is only necessary because we weren't able to find a java parser that better 
+suited our needs. 
 
 ## Evaluation and changes
 
