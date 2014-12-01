@@ -3,8 +3,9 @@
 ## What works well, and what could be improved?
 
 Right now, we think that the basics of our game and grammar are in a reasonably good spot. The game especially
-will be very easy to modify in order to support the things we need from it, and we have an empty AI class ready
-for at least a hard-coded demo if not parsing from JSON. The grammar currently supports a lot of the behavior
+will be very easy to modify in order to support the things we need from it, and we have an AI class with basic 
+functionality that should be easily extensible to the behaviors we want.
+The grammar currently supports a lot of the behavior
 that we think is important to making an interesting game with actual choices, and we have a grammar file which
 generates parsers using Grako.
 
