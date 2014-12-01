@@ -39,13 +39,19 @@ to spend a lot of time looking through the raw source code as well as other game
 out how to create the game features we wanted. 
 
 With regard to parsing - we originally wanted to parse using ANTLR, but couldn't find enough documentation. It seems 
-the author of ANTLER wants to force people to buy his book on the language before letting them use it.
+the author of ANTLR wants to force people to buy his book on the language before letting them use it.
 We eventually settled for the python parser Graco, which made the actual impelmentation much easier.
 However, since the AI is written in Java, we have to go through JSON to get from the Python AST 
 to the Spring AI. In an ideal world we would have been able to consolodate the AI code and parsing code
 but unfortunately that wasn't an option. If the AI had tried to do the parsing and unit control at the 
 same time it may have slowed down the game, so while using Graco will probably lead to a better game it's
-unfortunate that it requires us to do a lot more coding. 
+unfortunate that it requires us to do a lot more coding.
+
+## Work distribution
+
+In general, the way we have distributed the work is for us to work together on language planning, and for Alex to
+focus mostly on Spring implementation while I focused on parser implementation. Of course, we regularly checked
+in on the others' work and collaborated on particularly difficult or interesting portions of each.
 
 ## Work remaining
 
