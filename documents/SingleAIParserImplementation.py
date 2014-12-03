@@ -1,4 +1,4 @@
-import SingleAIGrammarParser
+from SingleAIParser import SingleAIGrammarParser
 
 class SingleAIGrammarParserImplementation(SingleAIGrammarParser):
     def __init__(self, whitespace=None, nameGuard=True, **kwargs):
