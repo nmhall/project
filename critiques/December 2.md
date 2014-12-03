@@ -10,3 +10,7 @@ Also, in terms of organization, you probably should have the code in a "src" fol
 It sounds like you guys are in a good place. From what I can see, you guys have a solid parser down (yay Grako! (also it's spelled with a 'k' not a 'c')). In terms of not wanting to go through JSON - Grako provides a way you can apply your own semantics to the parsed AST, I recommend checking it out. Even if it doesn't completely relieve you of JSON, it may help simplify the tree down to the essentials you really care about. 
 
 I look forward to seeing this game. It may also help users if you create a quick cheat sheet, how-to guide, or tutorial. Even just updating your brief language overview to reflect how one actually writes in the language (now that your syntax is mostly finalized) could be helpful.
+
+## Tyler
+
+Once again, I'll hold off on critiquing for now and do some extra next week. I will come by at some point to check out the game though.
