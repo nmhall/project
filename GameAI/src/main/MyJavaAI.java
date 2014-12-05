@@ -176,28 +176,29 @@ public class MyJavaAI extends OOAI implements AI {
 		}
 		else
 		{
-			if(frame % 4 == 0){
+			if(frame % 10 == 0){
 				for(Unit unit : my_units) {
 					Unit enemy = unitTargets.get(unit).get(0);
-				
-					try {
+					sendTextMsg("About to call within range");
+					if(withinRange(unit.getMaxRange(), unit, enemy)){
 			            unit.attack(enemy,emptyOptions(), 10000);
-			        } catch (CallbackAIException ex) {
+					}
+					
+					else {
 			        	AIFloat3 clippedPos = clipToMap(enemy.getPos());
-						
+			        	sendTextMsg("out of range");
 						//When the move is done, the unit will become idle and attack
 						try {
 				            unit.moveTo(clippedPos, emptyOptions(), 10000);
 				        } catch (CallbackAIException ex1) {
-				        	sendTextMsg(ex1.getMessage());
+				        	//sendTextMsg(ex1.getMessage());
 				        }
-				        
-			        }
+					}
+					
+			        
 				}
 			}
 		}
-		
-		
 		
 		/*
 		//enemyBit = enemies.get(0);
@@ -228,6 +229,16 @@ public class MyJavaAI extends OOAI implements AI {
 		return 0; // signaling: OK
 	}
 	
+	public boolean withinRange(float range, Unit unit1, Unit unit2) {
+		float dx = unit1.getPos().x - unit2.getPos().x;
+		float dy = unit1.getPos().y - unit2.getPos().y;
+		float dz = unit1.getPos().z - unit2.getPos().z;
+		
+		Double distance = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2) + Math.pow(dz,2));
+		
+		sendTextMsg(distance.toString() + " " + String.valueOf(range));
+		return (distance < range);
+	}
 	private int assignEnemies() {
 		
 		long seed = System.nanoTime();
@@ -256,7 +267,7 @@ public class MyJavaAI extends OOAI implements AI {
 			my_units.add(unit);
 		}
 		
-
+		
 		final List<Unit> enemies = this.clb.getEnemyUnits();
 		//enemyBit = enemies.get(0);
 		
@@ -292,13 +303,6 @@ public class MyJavaAI extends OOAI implements AI {
 
 	@Override
 	public int unitIdle(Unit unit) {
-		sendTextMsg("Unit is idle ");
-		
-		try {
-            //idle_units.get(0).attack(enemies.get(0),emptyOptions(), 10000);
-        } catch (CallbackAIException ex) {
-            sendTextMsg(ex.getMessage());
-        }
 		
 		return 0;
 	}
