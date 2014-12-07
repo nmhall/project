@@ -1,12 +1,9 @@
 Short{
 Formation{
-  default: tight formation
 }
 Movement{
   if there are 3 enemies adjacent:
     move away
-  default:
-    hold ground
 }
 Targeting{
   default: target lowest health
