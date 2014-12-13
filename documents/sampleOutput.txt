@@ -1,15 +1,12 @@
 AST:
-AST({u'mediumAI': AST({u'singleAI': AST({u'targetingDef': AST({u'targetingRules': None}), u'formationDef': AST({u'formationRules': None}), u'movementDef': AST({u'movementRules': None})})}), u'dumbAI': AST({u'singleAI': AST({u'targetingDef': AST({u'targetingRules': AST({u'defaultTargeting': u'target lowest health', u'extraTargetingRules': None})}), u'formationDef': AST({u'formationRules': AST({u'extraFormationRules': None, u'defaultFormation': u'tight formation'})}), u'movementDef': AST({u'movementRules': AST({u'extraMovementRules': AST({u'movementRule': AST({u'conditional': AST({u'condition': AST({u'enemyRange': None, u'allyProximity': None, u'myHealth': None, u'enemyProximity': AST({u'proximity': u'adjacent', u'number': u'3'}), u'enemyHealth': None, u'enemyIQ': None})}), u'movement': u'move away'})}), u'defaultMovement': u'hold ground'})})})}), u'smartAI': AST({u'singleAI': AST({u'targetingDef': AST({u'targetingRules': None}), u'formationDef': AST({u'formationRules': None}), u'movementDef': AST({u'movementRules': None})})})})
-
+AST({u'mediumAI': AST({u'singleMediumAI': AST({u'targetingDef': AST({u'targetingRules': AST({u'defaultTargeting': AST({u'targeting': u'target closest'}), u'extraTargetingRules': None})}), u'formationDef': AST({u'formationRules': AST({u'extraFormationRules': AST({u'formationRule': AST({u'conditional': AST({u'condition': AST({u'enemyRange': None, u'allyProximity': AST({u'proximity': u'adjacent', u'number': u'4'}), u'myHealth': None, u'enemyProximity': None, u'enemyHealth': None, u'enemyIQ': None})}), u'formation': AST({u'formation': u'tight formation'})})}), u'defaultFormation': None})}), u'movementDef': AST({u'movementRules': AST({u'extraMovementRules': AST({u'movementRule': [AST({u'conditional': AST({u'condition': AST({u'enemyRange': None, u'allyProximity': None, u'myHealth': None, u'enemyProximity': None, u'enemyHealth': AST({u'comparison': u'<', u'number': u'50'}), u'enemyIQ': None})}), u'movement': AST({u'movement': u'move away'})}), AST({u'conditional': AST({u'condition': AST({u'enemyRange': None, u'allyProximity': None, u'myHealth': AST({u'comparison': u'<', u'number': u'20'}), u'enemyProximity': None, u'enemyHealth': None, u'enemyIQ': None})}), u'movement': AST({u'movement': u'hold ground'})})]}), u'defaultMovement': None})})})}), u'dumbAI': AST({u'singleDumbAI': AST({u'targetingDef': AST({u'targetingRules': AST({u'defaultTargeting': AST({u'targeting': u'target lowest health'}), u'extraTargetingRules': None})}), u'formationDef': AST({u'formationRules': None}), u'movementDef': AST({u'movementRules': AST({u'extraMovementRules': AST({u'movementRule': AST({u'conditional': AST({u'condition': AST({u'enemyRange': None, u'allyProximity': None, u'myHealth': None, u'enemyProximity': AST({u'proximity': u'adjacent', u'number': u'3'}), u'enemyHealth': None, u'enemyIQ': None})}), u'movement': AST({u'movement': u'move away'})})}), u'defaultMovement': None})})})}), u'smartAI': AST({u'singleSmartAI': AST({u'targetingDef': AST({u'targetingRules': AST({u'defaultTargeting': AST({u'targeting': u'target lowest health'}), u'extraTargetingRules': AST({u'targetingRule': AST({u'conditional': AST({u'condition': AST({u'enemyRange': None, u'allyProximity': None, u'myHealth': None, u'enemyProximity': None, u'enemyHealth': None, u'enemyIQ': AST({u'comparison': u'>', u'number': u'4'})})}), u'targeting': AST({u'targeting': u'target smartest'})})})})}), u'formationDef': AST({u'formationRules': AST({u'extraFormationRules': AST({u'formationRule': AST({u'conditional': AST({u'condition': AST({u'enemyRange': None, u'allyProximity': None, u'myHealth': AST({u'comparison': u'>', u'number': u'70'}), u'enemyProximity': None, u'enemyHealth': None, u'enemyIQ': None})}), u'formation': AST({u'formation': u'tight formation'})})}), u'defaultFormation': AST({u'formation': u'isolation'})})}), u'movementDef': AST({u'movementRules': AST({u'extraSmartMovementRules': AST({u'movementRule': AST({u'conditional': AST({u'condition': AST({u'enemyRange': None, u'allyProximity': None, u'myHealth': AST({u'comparison': u'<', u'number': u'50'}), u'enemyProximity': None, u'enemyHealth': None, u'enemyIQ': None})}), u'movement': AST({u'movement': u'move away'})})}), u'extraMovementRules': None, u'defaultMovement': AST({u'movement': u'hold ground'})})})})})})
+()
 JSON:
 {
   "dumbAI": {
-    "singleAI": {
+    "singleDumbAI": {
       "formationDef": {
-        "formationRules": {
-          "defaultFormation": "tight formation", 
-          "extraFormationRules": null
-        }
+        "formationRules": null
       }, 
       "movementDef": {
         "movementRules": {
@@ -28,45 +25,191 @@ JSON:
                   "enemyRange": null
                 }
               }, 
-              "movement": "move away"
+              "movement": {
+                "movement": "move away"
+              }
             }
           }, 
-          "defaultMovement": "hold ground"
+          "defaultMovement": null
         }
       }, 
       "targetingDef": {
         "targetingRules": {
-          "defaultTargeting": "target lowest health", 
+          "defaultTargeting": {
+            "targeting": "target lowest health"
+          }, 
           "extraTargetingRules": null
         }
       }
     }
   }, 
   "mediumAI": {
-    "singleAI": {
+    "singleMediumAI": {
       "formationDef": {
-        "formationRules": null
+        "formationRules": {
+          "extraFormationRules": {
+            "formationRule": {
+              "conditional": {
+                "condition": {
+                  "allyProximity": {
+                    "number": "4", 
+                    "proximity": "adjacent"
+                  }, 
+                  "enemyProximity": null, 
+                  "myHealth": null, 
+                  "enemyIQ": null, 
+                  "enemyHealth": null, 
+                  "enemyRange": null
+                }
+              }, 
+              "formation": {
+                "formation": "tight formation"
+              }
+            }
+          }, 
+          "defaultFormation": null
+        }
       }, 
       "movementDef": {
-        "movementRules": null
+        "movementRules": {
+          "extraMovementRules": {
+            "movementRule": [
+              {
+                "conditional": {
+                  "condition": {
+                    "enemyHealth": {
+                      "comparison": "<", 
+                      "number": "50"
+                    }, 
+                    "enemyProximity": null, 
+                    "allyProximity": null, 
+                    "myHealth": null, 
+                    "enemyIQ": null, 
+                    "enemyRange": null
+                  }
+                }, 
+                "movement": {
+                  "movement": "move away"
+                }
+              }, 
+              {
+                "conditional": {
+                  "condition": {
+                    "myHealth": {
+                      "comparison": "<", 
+                      "number": "20"
+                    }, 
+                    "enemyProximity": null, 
+                    "allyProximity": null, 
+                    "enemyIQ": null, 
+                    "enemyHealth": null, 
+                    "enemyRange": null
+                  }
+                }, 
+                "movement": {
+                  "movement": "hold ground"
+                }
+              }
+            ]
+          }, 
+          "defaultMovement": null
+        }
       }, 
       "targetingDef": {
-        "targetingRules": null
+        "targetingRules": {
+          "defaultTargeting": {
+            "targeting": "target closest"
+          }, 
+          "extraTargetingRules": null
+        }
       }
     }
   }, 
   "smartAI": {
-    "singleAI": {
+    "singleSmartAI": {
       "formationDef": {
-        "formationRules": null
+        "formationRules": {
+          "extraFormationRules": {
+            "formationRule": {
+              "conditional": {
+                "condition": {
+                  "myHealth": {
+                    "comparison": ">", 
+                    "number": "70"
+                  }, 
+                  "enemyProximity": null, 
+                  "allyProximity": null, 
+                  "enemyIQ": null, 
+                  "enemyHealth": null, 
+                  "enemyRange": null
+                }
+              }, 
+              "formation": {
+                "formation": "tight formation"
+              }
+            }
+          }, 
+          "defaultFormation": {
+            "formation": "isolation"
+          }
+        }
       }, 
       "movementDef": {
-        "movementRules": null
+        "movementRules": {
+          "extraSmartMovementRules": {
+            "movementRule": {
+              "conditional": {
+                "condition": {
+                  "myHealth": {
+                    "comparison": "<", 
+                    "number": "50"
+                  }, 
+                  "enemyProximity": null, 
+                  "allyProximity": null, 
+                  "enemyIQ": null, 
+                  "enemyHealth": null, 
+                  "enemyRange": null
+                }
+              }, 
+              "movement": {
+                "movement": "move away"
+              }
+            }
+          }, 
+          "defaultMovement": {
+            "movement": "hold ground"
+          }, 
+          "extraMovementRules": null
+        }
       }, 
       "targetingDef": {
-        "targetingRules": null
+        "targetingRules": {
+          "extraTargetingRules": {
+            "targetingRule": {
+              "conditional": {
+                "condition": {
+                  "enemyIQ": {
+                    "comparison": ">", 
+                    "number": "4"
+                  }, 
+                  "enemyProximity": null, 
+                  "allyProximity": null, 
+                  "myHealth": null, 
+                  "enemyHealth": null, 
+                  "enemyRange": null
+                }
+              }, 
+              "targeting": {
+                "targeting": "target smartest"
+              }
+            }
+          }, 
+          "defaultTargeting": {
+            "targeting": "target lowest health"
+          }
+        }
       }
     }
   }
 }
-
+()

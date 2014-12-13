@@ -1,41 +1,129 @@
 allAIs = dumbAI:dumbAI mediumAI:mediumAI smartAI:smartAI;
 
-dumbAI = 'Short' '{' singleAI:singleAI '}';
-mediumAI = 'Int' '{' singleAI:singleAI '}';
-smartAI = 'Double' '{' singleAI:singleAI '}';
+dumbAI = 'Short' '{' singleDumbAI:singleDumbAI '}';
+mediumAI = 'Int' '{' singleMediumAI:singleMediumAI '}';
+smartAI = 'Double' '{' singleSmartAI:singleSmartAI '}';
 
-singleAI = formationDef:formationDef movementDef:movementDef targetingDef:targetingDef;
+singleDumbAI = formationDef:dumbFormationDef movementDef:dumbMovementDef
+               targetingDef:dumbTargetingDef;
 
-formationDef = 'Formation' '{' [formationRules:formationRules] '}';
+singleMediumAI = formationDef:mediumFormationDef movementDef:mediumMovementDef
+                 targetingDef:mediumTargetingDef;
 
-movementDef = 'Movement' '{' [movementRules:movementRules] '}';
+singleSmartAI = formationDef:smartFormationDef movementDef:smartMovementDef
+                targetingDef:smartTargetingDef;
 
-targetingDef = 'Targeting' '{' [targetingRules:targetingRules] '}';
+dumbFormationDef = 'Formation' '{' [formationRules:dumbFormationRules] '}';
 
-formationRules = [extraFormationRules:extraFormationRules] 'default:'
-                 defaultFormation:formation;
+mediumFormationDef = 'Formation' '{' [formationRules:mediumFormationRules] '}';
 
-movementRules = [extraMovementRules:extraMovementRules] 'default:'
-                defaultMovement:movement;
+smartFormationDef = 'Formation' '{' [formationRules:smartFormationRules] '}';
 
-targetingRules = [extraTargetingRules:extraTargetingRules] 'default:'
-                 defaultTargeting:targeting;
+dumbMovementDef = 'Movement' '{' [movementRules:dumbMovementRules] '}';
 
-extraFormationRules = {formationRule:formationRule}+;
+mediumMovementDef = 'Movement' '{' [movementRules:mediumMovementRules] '}';
 
-extraMovementRules = {movementRule:movementRule}+;
+smartMovementDef = 'Movement' '{' [movementRules:smartMovementRules] '}';
 
-extraTargetingRules = {targetingRule:targetingRule}+;
+dumbTargetingDef = 'Targeting' '{' [targetingRules:dumbTargetingRules] '}';
 
-formationRule = conditional:conditional ':' formation:formation;
+mediumTargetingDef = 'Targeting' '{' [targetingRules:mediumTargetingRules] '}';
 
-movementRule = conditional:conditional ':' movement:movement;
+smartTargetingDef = 'Targeting' '{' [targetingRules:smartTargetingRules] '}';
 
-targetingRule = conditional:conditional ':' targeting:targeting;
+dumbFormationRules = [extraFormationRules:extraDumbFormationRules] 'default:'
+                     defaultFormation:dumbFormation | extraFormationRules:
+                     extraDumbFormationRules;
+
+mediumFormationRules = [extraFormationRules:extraMediumFormationRules] 'default:'
+                       defaultFormation:mediumFormation | extraFormationRules:
+                       extraMediumFormationRules;
+
+smartFormationRules = [extraFormationRules:extraSmartFormationRules] 'default:'
+                      defaultFormation:smartFormation | extraFormationRules:
+                      extraSmartFormationRules;
+
+dumbMovementRules = [extraMovementRules:extraDumbMovementRules] 'default:'
+                    defaultMovement:dumbMovement | extraMovementRules:
+                    extraDumbMovementRules;
+
+mediumMovementRules = [extraMovementRules:extraMediumMovementRules] 'default:'
+                    defaultMovement:mediumMovement | extraMovementRules:
+                    extraMediumMovementRules;
+
+smartMovementRules = [extraSmartMovementRules:extraSmartMovementRules] 'default:'
+                     defaultMovement:smartMovement | extraMovementRules:
+                     extraSmartMovementRules;
+
+dumbTargetingRules = [extraTargetingRules:extraDumbTargetingRules] 'default:'
+                     defaultTargeting:dumbTargeting | extraTargetingRules:
+                     extraDumbTargetingRules;
+
+mediumTargetingRules = [extraTargetingRules:extraMediumTargetingRules] 'default:'
+                       defaultTargeting:mediumTargeting | extraTargetingRules:
+                       extraMediumTargetingRules;
+
+smartTargetingRules = [extraTargetingRules:extraSmartTargetingRules] 'default:'
+                      defaultTargeting:smartTargeting | extraTargetingRules:
+                      extraSmartTargetingRules;
+
+extraDumbFormationRules = {formationRule:dumbFormationRule}+;
+
+extraMediumFormationRules = {formationRule:mediumFormationRule}+;
+
+extraSmartFormationRules = {formationRule:smartFormationRule}+;
+
+extraDumbMovementRules = {movementRule:dumbMovementRule}+;
+
+extraMediumMovementRules = {movementRule:mediumMovementRule}+;
+
+extraSmartMovementRules = {movementRule:smartMovementRule}+;
+
+extraDumbTargetingRules = {targetingRule:dumbTargetingRule}+;
+
+extraMediumTargetingRules = {targetingRule:mediumTargetingRule}+;
+
+extraSmartTargetingRules = {targetingRule:smartTargetingRule}+;
+
+dumbFormationRule = conditional:conditional ':' formation:dumbFormation;
+
+mediumFormationRule = conditional:conditional ':' formation:mediumFormation;
+
+smartFormationRule = conditional:conditional ':' formation:smartFormation;
+
+dumbMovementRule = conditional:conditional ':' movement:dumbMovement;
+
+mediumMovementRule = conditional:conditional ':' movement:mediumMovement;
+
+smartMovementRule = conditional:conditional ':' movement:smartMovement;
+
+dumbTargetingRule = conditional:conditional ':' targeting:dumbTargeting;
+
+mediumTargetingRule = conditional:conditional ':' targeting:mediumTargeting;
+
+smartTargetingRule = conditional:conditional ':' targeting:smartTargeting;
+
+dumbFormation = formation:formation;
+
+mediumFormation = formation:formation;
+
+smartFormation = formation:formation;
 
 formation = 'tight formation' | 'loose formation' | 'isolation';
 
+dumbMovement = movement:movement;
+
+mediumMovement = movement:movement;
+
+smartMovement = movement:movement;
+
 movement = 'move toward' | 'move away' | 'hold ground';
+
+dumbTargeting = targeting:targeting;
+
+mediumTargeting = targeting:targeting;
+
+smartTargeting = targeting:targeting;
 
 targeting = 'target closest' | 'target farthest' | 'target lowest health'
             | 'target smartest' | 'target highest range';
@@ -54,7 +142,7 @@ allyProximity = 'there are' number:number 'allies' proximity:proximity;
 
 proximity = 'adjacent' | 'close' | 'around';
 
-myHealth = 'health' comparison:comparison number:number;
+myHealth = 'my health' comparison:comparison number:number;
 
 enemyIQ = 'a nearby enemy has IQ' comparison:comparison number:number;
 

@@ -1,11 +1,10 @@
 Short{
-Formation{if there are 3 enemies adjacent and health < 10: tight formation}
-Movement{if nearby enemy has range > 4: move toward}
-Targeting{if a nearby enemy has health > 3: target lowest health}
+Formation{}
+Movement{}
+Targeting{}
 }
 Int{
-Formation{if there are 3 enemies adjacent and health > 10: tight formation
-          if nearby enemy has range 4: loose formation}
+Formation{}
 Movement{}
 Targeting{}
 }

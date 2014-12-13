@@ -15,7 +15,7 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 from grako.parsing import graken, Parser
 
 
-__version__ = (2014, 11, 24, 5, 37, 16, 0)
+__version__ = (2014, 12, 13, 1, 21, 15, 5)
 
 __all__ = [
     'SingleAIGrammarParser',
@@ -50,12 +50,12 @@ class SingleAIGrammarParser(Parser):
     def _dumbAI_(self):
         self._token('Short')
         self._token('{')
-        self._singleAI_()
-        self.ast['singleAI'] = self.last_node
+        self._singleDumbAI_()
+        self.ast['singleDumbAI'] = self.last_node
         self._token('}')
 
         self.ast._define(
-            ['singleAI'],
+            ['singleDumbAI'],
             []
         )
 
@@ -63,12 +63,12 @@ class SingleAIGrammarParser(Parser):
     def _mediumAI_(self):
         self._token('Int')
         self._token('{')
-        self._singleAI_()
-        self.ast['singleAI'] = self.last_node
+        self._singleMediumAI_()
+        self.ast['singleMediumAI'] = self.last_node
         self._token('}')
 
         self.ast._define(
-            ['singleAI'],
+            ['singleMediumAI'],
             []
         )
 
@@ -76,22 +76,22 @@ class SingleAIGrammarParser(Parser):
     def _smartAI_(self):
         self._token('Double')
         self._token('{')
-        self._singleAI_()
-        self.ast['singleAI'] = self.last_node
+        self._singleSmartAI_()
+        self.ast['singleSmartAI'] = self.last_node
         self._token('}')
 
         self.ast._define(
-            ['singleAI'],
+            ['singleSmartAI'],
             []
         )
 
     @graken()
-    def _singleAI_(self):
-        self._formationDef_()
+    def _singleDumbAI_(self):
+        self._dumbFormationDef_()
         self.ast['formationDef'] = self.last_node
-        self._movementDef_()
+        self._dumbMovementDef_()
         self.ast['movementDef'] = self.last_node
-        self._targetingDef_()
+        self._dumbTargetingDef_()
         self.ast['targetingDef'] = self.last_node
 
         self.ast._define(
@@ -100,11 +100,39 @@ class SingleAIGrammarParser(Parser):
         )
 
     @graken()
-    def _formationDef_(self):
+    def _singleMediumAI_(self):
+        self._mediumFormationDef_()
+        self.ast['formationDef'] = self.last_node
+        self._mediumMovementDef_()
+        self.ast['movementDef'] = self.last_node
+        self._mediumTargetingDef_()
+        self.ast['targetingDef'] = self.last_node
+
+        self.ast._define(
+            ['formationDef', 'movementDef', 'targetingDef'],
+            []
+        )
+
+    @graken()
+    def _singleSmartAI_(self):
+        self._smartFormationDef_()
+        self.ast['formationDef'] = self.last_node
+        self._smartMovementDef_()
+        self.ast['movementDef'] = self.last_node
+        self._smartTargetingDef_()
+        self.ast['targetingDef'] = self.last_node
+
+        self.ast._define(
+            ['formationDef', 'movementDef', 'targetingDef'],
+            []
+        )
+
+    @graken()
+    def _dumbFormationDef_(self):
         self._token('Formation')
         self._token('{')
         with self._optional():
-            self._formationRules_()
+            self._dumbFormationRules_()
             self.ast['formationRules'] = self.last_node
         self._token('}')
 
@@ -114,11 +142,39 @@ class SingleAIGrammarParser(Parser):
         )
 
     @graken()
-    def _movementDef_(self):
+    def _mediumFormationDef_(self):
+        self._token('Formation')
+        self._token('{')
+        with self._optional():
+            self._mediumFormationRules_()
+            self.ast['formationRules'] = self.last_node
+        self._token('}')
+
+        self.ast._define(
+            ['formationRules'],
+            []
+        )
+
+    @graken()
+    def _smartFormationDef_(self):
+        self._token('Formation')
+        self._token('{')
+        with self._optional():
+            self._smartFormationRules_()
+            self.ast['formationRules'] = self.last_node
+        self._token('}')
+
+        self.ast._define(
+            ['formationRules'],
+            []
+        )
+
+    @graken()
+    def _dumbMovementDef_(self):
         self._token('Movement')
         self._token('{')
         with self._optional():
-            self._movementRules_()
+            self._dumbMovementRules_()
             self.ast['movementRules'] = self.last_node
         self._token('}')
 
@@ -128,11 +184,39 @@ class SingleAIGrammarParser(Parser):
         )
 
     @graken()
-    def _targetingDef_(self):
+    def _mediumMovementDef_(self):
+        self._token('Movement')
+        self._token('{')
+        with self._optional():
+            self._mediumMovementRules_()
+            self.ast['movementRules'] = self.last_node
+        self._token('}')
+
+        self.ast._define(
+            ['movementRules'],
+            []
+        )
+
+    @graken()
+    def _smartMovementDef_(self):
+        self._token('Movement')
+        self._token('{')
+        with self._optional():
+            self._smartMovementRules_()
+            self.ast['movementRules'] = self.last_node
+        self._token('}')
+
+        self.ast._define(
+            ['movementRules'],
+            []
+        )
+
+    @graken()
+    def _dumbTargetingDef_(self):
         self._token('Targeting')
         self._token('{')
         with self._optional():
-            self._targetingRules_()
+            self._dumbTargetingRules_()
             self.ast['targetingRules'] = self.last_node
         self._token('}')
 
@@ -142,13 +226,47 @@ class SingleAIGrammarParser(Parser):
         )
 
     @graken()
-    def _formationRules_(self):
+    def _mediumTargetingDef_(self):
+        self._token('Targeting')
+        self._token('{')
         with self._optional():
-            self._extraFormationRules_()
-            self.ast['extraFormationRules'] = self.last_node
-        self._token('default:')
-        self._formation_()
-        self.ast['defaultFormation'] = self.last_node
+            self._mediumTargetingRules_()
+            self.ast['targetingRules'] = self.last_node
+        self._token('}')
+
+        self.ast._define(
+            ['targetingRules'],
+            []
+        )
+
+    @graken()
+    def _smartTargetingDef_(self):
+        self._token('Targeting')
+        self._token('{')
+        with self._optional():
+            self._smartTargetingRules_()
+            self.ast['targetingRules'] = self.last_node
+        self._token('}')
+
+        self.ast._define(
+            ['targetingRules'],
+            []
+        )
+
+    @graken()
+    def _dumbFormationRules_(self):
+        with self._choice():
+            with self._option():
+                with self._optional():
+                    self._extraDumbFormationRules_()
+                    self.ast['extraFormationRules'] = self.last_node
+                self._token('default:')
+                self._dumbFormation_()
+                self.ast['defaultFormation'] = self.last_node
+            with self._option():
+                self._extraDumbFormationRules_()
+                self.ast['extraFormationRules'] = self.last_node
+            self._error('no available options')
 
         self.ast._define(
             ['extraFormationRules', 'defaultFormation'],
@@ -156,13 +274,59 @@ class SingleAIGrammarParser(Parser):
         )
 
     @graken()
-    def _movementRules_(self):
-        with self._optional():
-            self._extraMovementRules_()
-            self.ast['extraMovementRules'] = self.last_node
-        self._token('default:')
-        self._movement_()
-        self.ast['defaultMovement'] = self.last_node
+    def _mediumFormationRules_(self):
+        with self._choice():
+            with self._option():
+                with self._optional():
+                    self._extraMediumFormationRules_()
+                    self.ast['extraFormationRules'] = self.last_node
+                self._token('default:')
+                self._mediumFormation_()
+                self.ast['defaultFormation'] = self.last_node
+            with self._option():
+                self._extraMediumFormationRules_()
+                self.ast['extraFormationRules'] = self.last_node
+            self._error('no available options')
+
+        self.ast._define(
+            ['extraFormationRules', 'defaultFormation'],
+            []
+        )
+
+    @graken()
+    def _smartFormationRules_(self):
+        with self._choice():
+            with self._option():
+                with self._optional():
+                    self._extraSmartFormationRules_()
+                    self.ast['extraFormationRules'] = self.last_node
+                self._token('default:')
+                self._smartFormation_()
+                self.ast['defaultFormation'] = self.last_node
+            with self._option():
+                self._extraSmartFormationRules_()
+                self.ast['extraFormationRules'] = self.last_node
+            self._error('no available options')
+
+        self.ast._define(
+            ['extraFormationRules', 'defaultFormation'],
+            []
+        )
+
+    @graken()
+    def _dumbMovementRules_(self):
+        with self._choice():
+            with self._option():
+                with self._optional():
+                    self._extraDumbMovementRules_()
+                    self.ast['extraMovementRules'] = self.last_node
+                self._token('default:')
+                self._dumbMovement_()
+                self.ast['defaultMovement'] = self.last_node
+            with self._option():
+                self._extraDumbMovementRules_()
+                self.ast['extraMovementRules'] = self.last_node
+            self._error('no available options')
 
         self.ast._define(
             ['extraMovementRules', 'defaultMovement'],
@@ -170,13 +334,59 @@ class SingleAIGrammarParser(Parser):
         )
 
     @graken()
-    def _targetingRules_(self):
-        with self._optional():
-            self._extraTargetingRules_()
-            self.ast['extraTargetingRules'] = self.last_node
-        self._token('default:')
-        self._targeting_()
-        self.ast['defaultTargeting'] = self.last_node
+    def _mediumMovementRules_(self):
+        with self._choice():
+            with self._option():
+                with self._optional():
+                    self._extraMediumMovementRules_()
+                    self.ast['extraMovementRules'] = self.last_node
+                self._token('default:')
+                self._mediumMovement_()
+                self.ast['defaultMovement'] = self.last_node
+            with self._option():
+                self._extraMediumMovementRules_()
+                self.ast['extraMovementRules'] = self.last_node
+            self._error('no available options')
+
+        self.ast._define(
+            ['extraMovementRules', 'defaultMovement'],
+            []
+        )
+
+    @graken()
+    def _smartMovementRules_(self):
+        with self._choice():
+            with self._option():
+                with self._optional():
+                    self._extraSmartMovementRules_()
+                    self.ast['extraSmartMovementRules'] = self.last_node
+                self._token('default:')
+                self._smartMovement_()
+                self.ast['defaultMovement'] = self.last_node
+            with self._option():
+                self._extraSmartMovementRules_()
+                self.ast['extraMovementRules'] = self.last_node
+            self._error('no available options')
+
+        self.ast._define(
+            ['extraSmartMovementRules', 'defaultMovement', 'extraMovementRules'],
+            []
+        )
+
+    @graken()
+    def _dumbTargetingRules_(self):
+        with self._choice():
+            with self._option():
+                with self._optional():
+                    self._extraDumbTargetingRules_()
+                    self.ast['extraTargetingRules'] = self.last_node
+                self._token('default:')
+                self._dumbTargeting_()
+                self.ast['defaultTargeting'] = self.last_node
+            with self._option():
+                self._extraDumbTargetingRules_()
+                self.ast['extraTargetingRules'] = self.last_node
+            self._error('no available options')
 
         self.ast._define(
             ['extraTargetingRules', 'defaultTargeting'],
@@ -184,10 +394,50 @@ class SingleAIGrammarParser(Parser):
         )
 
     @graken()
-    def _extraFormationRules_(self):
+    def _mediumTargetingRules_(self):
+        with self._choice():
+            with self._option():
+                with self._optional():
+                    self._extraMediumTargetingRules_()
+                    self.ast['extraTargetingRules'] = self.last_node
+                self._token('default:')
+                self._mediumTargeting_()
+                self.ast['defaultTargeting'] = self.last_node
+            with self._option():
+                self._extraMediumTargetingRules_()
+                self.ast['extraTargetingRules'] = self.last_node
+            self._error('no available options')
+
+        self.ast._define(
+            ['extraTargetingRules', 'defaultTargeting'],
+            []
+        )
+
+    @graken()
+    def _smartTargetingRules_(self):
+        with self._choice():
+            with self._option():
+                with self._optional():
+                    self._extraSmartTargetingRules_()
+                    self.ast['extraTargetingRules'] = self.last_node
+                self._token('default:')
+                self._smartTargeting_()
+                self.ast['defaultTargeting'] = self.last_node
+            with self._option():
+                self._extraSmartTargetingRules_()
+                self.ast['extraTargetingRules'] = self.last_node
+            self._error('no available options')
+
+        self.ast._define(
+            ['extraTargetingRules', 'defaultTargeting'],
+            []
+        )
+
+    @graken()
+    def _extraDumbFormationRules_(self):
 
         def block0():
-            self._formationRule_()
+            self._dumbFormationRule_()
             self.ast['formationRule'] = self.last_node
         self._positive_closure(block0)
 
@@ -197,10 +447,36 @@ class SingleAIGrammarParser(Parser):
         )
 
     @graken()
-    def _extraMovementRules_(self):
+    def _extraMediumFormationRules_(self):
 
         def block0():
-            self._movementRule_()
+            self._mediumFormationRule_()
+            self.ast['formationRule'] = self.last_node
+        self._positive_closure(block0)
+
+        self.ast._define(
+            ['formationRule'],
+            []
+        )
+
+    @graken()
+    def _extraSmartFormationRules_(self):
+
+        def block0():
+            self._smartFormationRule_()
+            self.ast['formationRule'] = self.last_node
+        self._positive_closure(block0)
+
+        self.ast._define(
+            ['formationRule'],
+            []
+        )
+
+    @graken()
+    def _extraDumbMovementRules_(self):
+
+        def block0():
+            self._dumbMovementRule_()
             self.ast['movementRule'] = self.last_node
         self._positive_closure(block0)
 
@@ -210,10 +486,36 @@ class SingleAIGrammarParser(Parser):
         )
 
     @graken()
-    def _extraTargetingRules_(self):
+    def _extraMediumMovementRules_(self):
 
         def block0():
-            self._targetingRule_()
+            self._mediumMovementRule_()
+            self.ast['movementRule'] = self.last_node
+        self._positive_closure(block0)
+
+        self.ast._define(
+            ['movementRule'],
+            []
+        )
+
+    @graken()
+    def _extraSmartMovementRules_(self):
+
+        def block0():
+            self._smartMovementRule_()
+            self.ast['movementRule'] = self.last_node
+        self._positive_closure(block0)
+
+        self.ast._define(
+            ['movementRule'],
+            []
+        )
+
+    @graken()
+    def _extraDumbTargetingRules_(self):
+
+        def block0():
+            self._dumbTargetingRule_()
             self.ast['targetingRule'] = self.last_node
         self._positive_closure(block0)
 
@@ -223,11 +525,37 @@ class SingleAIGrammarParser(Parser):
         )
 
     @graken()
-    def _formationRule_(self):
+    def _extraMediumTargetingRules_(self):
+
+        def block0():
+            self._mediumTargetingRule_()
+            self.ast['targetingRule'] = self.last_node
+        self._positive_closure(block0)
+
+        self.ast._define(
+            ['targetingRule'],
+            []
+        )
+
+    @graken()
+    def _extraSmartTargetingRules_(self):
+
+        def block0():
+            self._smartTargetingRule_()
+            self.ast['targetingRule'] = self.last_node
+        self._positive_closure(block0)
+
+        self.ast._define(
+            ['targetingRule'],
+            []
+        )
+
+    @graken()
+    def _dumbFormationRule_(self):
         self._conditional_()
         self.ast['conditional'] = self.last_node
         self._token(':')
-        self._formation_()
+        self._dumbFormation_()
         self.ast['formation'] = self.last_node
 
         self.ast._define(
@@ -236,11 +564,37 @@ class SingleAIGrammarParser(Parser):
         )
 
     @graken()
-    def _movementRule_(self):
+    def _mediumFormationRule_(self):
         self._conditional_()
         self.ast['conditional'] = self.last_node
         self._token(':')
-        self._movement_()
+        self._mediumFormation_()
+        self.ast['formation'] = self.last_node
+
+        self.ast._define(
+            ['conditional', 'formation'],
+            []
+        )
+
+    @graken()
+    def _smartFormationRule_(self):
+        self._conditional_()
+        self.ast['conditional'] = self.last_node
+        self._token(':')
+        self._smartFormation_()
+        self.ast['formation'] = self.last_node
+
+        self.ast._define(
+            ['conditional', 'formation'],
+            []
+        )
+
+    @graken()
+    def _dumbMovementRule_(self):
+        self._conditional_()
+        self.ast['conditional'] = self.last_node
+        self._token(':')
+        self._dumbMovement_()
         self.ast['movement'] = self.last_node
 
         self.ast._define(
@@ -249,15 +603,97 @@ class SingleAIGrammarParser(Parser):
         )
 
     @graken()
-    def _targetingRule_(self):
+    def _mediumMovementRule_(self):
         self._conditional_()
         self.ast['conditional'] = self.last_node
         self._token(':')
-        self._targeting_()
+        self._mediumMovement_()
+        self.ast['movement'] = self.last_node
+
+        self.ast._define(
+            ['conditional', 'movement'],
+            []
+        )
+
+    @graken()
+    def _smartMovementRule_(self):
+        self._conditional_()
+        self.ast['conditional'] = self.last_node
+        self._token(':')
+        self._smartMovement_()
+        self.ast['movement'] = self.last_node
+
+        self.ast._define(
+            ['conditional', 'movement'],
+            []
+        )
+
+    @graken()
+    def _dumbTargetingRule_(self):
+        self._conditional_()
+        self.ast['conditional'] = self.last_node
+        self._token(':')
+        self._dumbTargeting_()
         self.ast['targeting'] = self.last_node
 
         self.ast._define(
             ['conditional', 'targeting'],
+            []
+        )
+
+    @graken()
+    def _mediumTargetingRule_(self):
+        self._conditional_()
+        self.ast['conditional'] = self.last_node
+        self._token(':')
+        self._mediumTargeting_()
+        self.ast['targeting'] = self.last_node
+
+        self.ast._define(
+            ['conditional', 'targeting'],
+            []
+        )
+
+    @graken()
+    def _smartTargetingRule_(self):
+        self._conditional_()
+        self.ast['conditional'] = self.last_node
+        self._token(':')
+        self._smartTargeting_()
+        self.ast['targeting'] = self.last_node
+
+        self.ast._define(
+            ['conditional', 'targeting'],
+            []
+        )
+
+    @graken()
+    def _dumbFormation_(self):
+        self._formation_()
+        self.ast['formation'] = self.last_node
+
+        self.ast._define(
+            ['formation'],
+            []
+        )
+
+    @graken()
+    def _mediumFormation_(self):
+        self._formation_()
+        self.ast['formation'] = self.last_node
+
+        self.ast._define(
+            ['formation'],
+            []
+        )
+
+    @graken()
+    def _smartFormation_(self):
+        self._formation_()
+        self.ast['formation'] = self.last_node
+
+        self.ast._define(
+            ['formation'],
             []
         )
 
@@ -273,6 +709,36 @@ class SingleAIGrammarParser(Parser):
             self._error('expecting one of: isolation loose formation tight formation')
 
     @graken()
+    def _dumbMovement_(self):
+        self._movement_()
+        self.ast['movement'] = self.last_node
+
+        self.ast._define(
+            ['movement'],
+            []
+        )
+
+    @graken()
+    def _mediumMovement_(self):
+        self._movement_()
+        self.ast['movement'] = self.last_node
+
+        self.ast._define(
+            ['movement'],
+            []
+        )
+
+    @graken()
+    def _smartMovement_(self):
+        self._movement_()
+        self.ast['movement'] = self.last_node
+
+        self.ast._define(
+            ['movement'],
+            []
+        )
+
+    @graken()
     def _movement_(self):
         with self._choice():
             with self._option():
@@ -282,6 +748,36 @@ class SingleAIGrammarParser(Parser):
             with self._option():
                 self._token('hold ground')
             self._error('expecting one of: hold ground move away move toward')
+
+    @graken()
+    def _dumbTargeting_(self):
+        self._targeting_()
+        self.ast['targeting'] = self.last_node
+
+        self.ast._define(
+            ['targeting'],
+            []
+        )
+
+    @graken()
+    def _mediumTargeting_(self):
+        self._targeting_()
+        self.ast['targeting'] = self.last_node
+
+        self.ast._define(
+            ['targeting'],
+            []
+        )
+
+    @graken()
+    def _smartTargeting_(self):
+        self._targeting_()
+        self.ast['targeting'] = self.last_node
+
+        self.ast._define(
+            ['targeting'],
+            []
+        )
 
     @graken()
     def _targeting_(self):
@@ -393,7 +889,7 @@ class SingleAIGrammarParser(Parser):
 
     @graken()
     def _myHealth_(self):
-        self._token('health')
+        self._token('my health')
         self._comparison_()
         self.ast['comparison'] = self.last_node
         self._number_()
@@ -470,49 +966,154 @@ class SingleAIGrammarSemantics(object):
     def smartAI(self, ast):
         return ast
 
-    def singleAI(self, ast):
+    def singleDumbAI(self, ast):
         return ast
 
-    def formationDef(self, ast):
+    def singleMediumAI(self, ast):
         return ast
 
-    def movementDef(self, ast):
+    def singleSmartAI(self, ast):
         return ast
 
-    def targetingDef(self, ast):
+    def dumbFormationDef(self, ast):
         return ast
 
-    def formationRules(self, ast):
+    def mediumFormationDef(self, ast):
         return ast
 
-    def movementRules(self, ast):
+    def smartFormationDef(self, ast):
         return ast
 
-    def targetingRules(self, ast):
+    def dumbMovementDef(self, ast):
         return ast
 
-    def extraFormationRules(self, ast):
+    def mediumMovementDef(self, ast):
         return ast
 
-    def extraMovementRules(self, ast):
+    def smartMovementDef(self, ast):
         return ast
 
-    def extraTargetingRules(self, ast):
+    def dumbTargetingDef(self, ast):
         return ast
 
-    def formationRule(self, ast):
+    def mediumTargetingDef(self, ast):
         return ast
 
-    def movementRule(self, ast):
+    def smartTargetingDef(self, ast):
         return ast
 
-    def targetingRule(self, ast):
+    def dumbFormationRules(self, ast):
+        return ast
+
+    def mediumFormationRules(self, ast):
+        return ast
+
+    def smartFormationRules(self, ast):
+        return ast
+
+    def dumbMovementRules(self, ast):
+        return ast
+
+    def mediumMovementRules(self, ast):
+        return ast
+
+    def smartMovementRules(self, ast):
+        return ast
+
+    def dumbTargetingRules(self, ast):
+        return ast
+
+    def mediumTargetingRules(self, ast):
+        return ast
+
+    def smartTargetingRules(self, ast):
+        return ast
+
+    def extraDumbFormationRules(self, ast):
+        return ast
+
+    def extraMediumFormationRules(self, ast):
+        return ast
+
+    def extraSmartFormationRules(self, ast):
+        return ast
+
+    def extraDumbMovementRules(self, ast):
+        return ast
+
+    def extraMediumMovementRules(self, ast):
+        return ast
+
+    def extraSmartMovementRules(self, ast):
+        return ast
+
+    def extraDumbTargetingRules(self, ast):
+        return ast
+
+    def extraMediumTargetingRules(self, ast):
+        return ast
+
+    def extraSmartTargetingRules(self, ast):
+        return ast
+
+    def dumbFormationRule(self, ast):
+        return ast
+
+    def mediumFormationRule(self, ast):
+        return ast
+
+    def smartFormationRule(self, ast):
+        return ast
+
+    def dumbMovementRule(self, ast):
+        return ast
+
+    def mediumMovementRule(self, ast):
+        return ast
+
+    def smartMovementRule(self, ast):
+        return ast
+
+    def dumbTargetingRule(self, ast):
+        return ast
+
+    def mediumTargetingRule(self, ast):
+        return ast
+
+    def smartTargetingRule(self, ast):
+        return ast
+
+    def dumbFormation(self, ast):
+        return ast
+
+    def mediumFormation(self, ast):
+        return ast
+
+    def smartFormation(self, ast):
         return ast
 
     def formation(self, ast):
         return ast
 
+    def dumbMovement(self, ast):
+        return ast
+
+    def mediumMovement(self, ast):
+        return ast
+
+    def smartMovement(self, ast):
+        return ast
+
     def movement(self, ast):
+        return ast
+
+    def dumbTargeting(self, ast):
+        return ast
+
+    def mediumTargeting(self, ast):
+        return ast
+
+    def smartTargeting(self, ast):
         return ast
 
     def targeting(self, ast):
