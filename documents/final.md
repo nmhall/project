@@ -110,7 +110,6 @@ Here is what a legal AI definition might look like:
 Short{
 
     Formation{
-
     }
 
     Movement{
@@ -118,35 +117,23 @@ Short{
     }
 
     Targeting{
-
       default: target lowest health
-  
     }
-
 }
 
 Int{
+    Formation{
+        if there are 4 allies adjacent: tight formation
+    }
 
-Formation{
+    Movement{
+        if a nearby enemy has health < 50 and my health > 60: move away
+        if my health < 20: hold ground
+    }
 
-  if there are 4 allies adjacent: tight formation
-  
-}
-
-Movement{
-
-  if a nearby enemy has health < 50 and my health > 60: move away
-  
-  if my health < 20: hold ground
-  
-}
-
-Targeting{
-
-  default: target closest
-  
-}
-
+    Targeting{
+        default: target closest
+    }
 }
 
 Double{
