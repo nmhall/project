@@ -113,16 +113,15 @@ Short{
 
     }
 
-Movement{
+    Movement{
+        if there are 3 enemies adjacent: move away
+    }
 
-  if there are 3 enemies adjacent: move away
-}
+    Targeting{
 
-Targeting{
-
-  default: target lowest health
+      default: target lowest health
   
-}
+    }
 
 }
 
