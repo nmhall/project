@@ -10,12 +10,36 @@ Targeting{
 }
 }
 Int{
-Formation{}
-Movement{}
-Targeting{}
+Formation{
+  if there are 4 allies adjacent:
+    tight formation
+}
+Movement{
+  if a nearby enemy has health < 50 and my health > 60:
+    move away
+  if my health < 20:
+    hold ground
+}
+Targeting{
+  default: target closest
+}
 }
 Double{
-Formation{}
-Movement{}
-Targeting{}
+Formation{
+  if my health > 70:
+    tight formation
+  default: isolation
+}
+Movement{
+  if my health < 50:
+    move away
+  default:
+    hold ground
+}
+Targeting{
+  if a nearby enemy has IQ > 4:
+    target smartest
+  default:
+    target lowest health
+}
 }

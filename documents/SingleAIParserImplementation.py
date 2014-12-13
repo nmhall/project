@@ -58,18 +58,18 @@ class SingleAIGrammarSemantics(object):
         return ast
 
     def smartFormation(self, ast):
-        self.smartules += 1
-        if self.smartules > self.maxSmartRules:
+        self.smartRules += 1
+        if self.smartRules > self.maxSmartRules:
             raise IQException("Too many rules supplied to double AI")
         return ast
     def smartMovement(self, ast):
-        self.smartules += 1
-        if self.smartules > self.maxSmartRules:
+        self.smartRules += 1
+        if self.smartRules > self.maxSmartRules:
             raise IQException("Too many rules supplied to double AI")
         return ast
     def smartTargeting(self, ast):
-        self.smartules += 1
-        if self.smartules > self.maxSmartRules:
+        self.smartRules += 1
+        if self.smartRules > self.maxSmartRules:
             raise IQException("Too many rules supplied to double AI")
         return ast
 
