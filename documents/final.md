@@ -108,6 +108,7 @@ of an AI in strategic, rather than game- or implementation-specific terms.
 Here is what a legal AI definition might look like:
 
 Short{
+
     Formation{
 
     }
