@@ -46,9 +46,9 @@ possibilities. Here are the possibilities for behaviors for each category:
 
 ### Formation ###
 The possible choices for formation are:
-  'tight formation'
-  'loose formation'
-  'isolation'
+  * 'tight formation'
+  * 'loose formation'
+  * 'isolation'
 
 These will determine how your unit moves in reaction to the allies around it. As you might
 expect, a unit in tight formation will try to stay bunched up with its allies, while a unit
@@ -57,9 +57,9 @@ will actively avoid its allies.
 
 ### Movement ###
 The possible choices for movement are:
-  'move toward'
-  'move away'
-  'hold ground'
+  * 'move toward'
+  * 'move away'
+  * 'hold ground'
 
 These will determine how your unit moves in reaction to the nearby enemies. A unit given
 the behavior of 'move toward' will (no surprises here) move toward enemies to attack while
@@ -69,11 +69,11 @@ formations, so make sure you're careful to not get your units stuck in bad spots
 
 ### Targeting ###
 The possible choices for targeting are:
-  'target closest'
-  'target farthest'
-  'target lowest health'
-  'target smartest'
-  'target highest range'
+  * 'target closest'
+  * 'target farthest'
+  * 'target lowest health'
+  * 'target smartest'
+  * 'target highest range'
 
 These will determine which of the in-range enemies your unit decides to shoot at when it
 attacks. These are pretty self-explanatory: a unit targeting closest will shoot the nearest
