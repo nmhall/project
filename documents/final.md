@@ -7,16 +7,30 @@ Programs are created by filling out a text file with descriptions of the desired
 each type of unit. Users choose from a set of meaningful conditions, and select a behavior
 for the unit to follow under that condition, as well as being able to give a default behavior.
 By providing a meaningful and interesting set of conditions and behaviors for the user to
-choose from, we make it easy for them 
+choose from, we make it easy for them to take strategic concepts and make them a reality in
+a more direct fashion than if they had to go through the full implementation process
+themselves.
 
 ## Language design details: Give a high-level overview of your language's design. Be sure to answer the following questions:
 
 #### How does a user write programs in your language (e.g., do they type in commands, use a visual/graphical tool, speak, etc.)?
 
+A user fills in a skeleton text file with various rules for their units. This text file is
+passed to a parsing Python program.
+
 #### How does the syntax of your language help users write programs more easily than the syntax of a general-purpose language?
+
+We do borrow heavily from the idea and syntax of a switch or case statement in
+general-purpose languages. However, our language is focused much more heavily on simply
+stating what a unit should do under a certain condition, and our syntax reflects that
+by allowing more sentence-like rules without unnecessary parentheses, dots, or other
+artifacts of programming languages that have no actual bearing on what the user is trying
+to communicate through their program.
 
 
 #### What is the basic computation that your language performs (i.e., what is the computational model)?
+
+
 
 #### What are the basic data structures in your DSL, if any? How does a the user create and manipulate data?
 
