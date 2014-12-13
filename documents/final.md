@@ -109,7 +109,7 @@ Here is what a legal AI definition might look like:
 
 Short{
 
-Formation{
+  Formation{
 
 }
 
