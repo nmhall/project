@@ -15,6 +15,8 @@ import java.util.Hashtable;
 import java.util.Properties;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.*;
 
 /**
@@ -71,6 +73,8 @@ public class MyJavaAI extends OOAI implements AI {
 	private Boolean setupEnemies = false;
 	private List<Unit> enemies = new ArrayList<Unit>();
 	private List<Unit> my_units = new ArrayList<Unit>();
+	private final Lock _mutex = new ReentrantLock(true);
+	private int NUMBER_OF_ENEMIES = 3;
 	
 	
 	private Hashtable<Unit, List<Unit>> unitTargets = new Hashtable<Unit, List<Unit>>();
@@ -168,20 +172,23 @@ public class MyJavaAI extends OOAI implements AI {
 		
 		//Reset the list of enemies every 100 frames
 		if(!setupEnemies){
-			if((this.clb.getEnemyUnits().size() != 0) && (!setupEnemies)){
+			//THIS IS A HACK 
+			if((this.clb.getEnemyUnits().size() == this.NUMBER_OF_ENEMIES) && (!setupEnemies)){
 				sendTextMsg("Assigning enemies");
 				assignEnemies();
 			}
 		}
-		else
-		{
-			if(frame % 4 == 0){
-				for(Unit unit : my_units) {
-					Unit enemy = unitTargets.get(unit).get(0);
+		else if(this.clb.getEnemyUnits().size() != 0)
+		{	
+			
+			_mutex.lock();
+			for(Unit unit : this.my_units) {
+				//sendTextMsg(String.valueOf(this.unitTargets.get(unit).size()));
+				Unit enemy = this.unitTargets.get(unit).get(0);
 				
-					try {
-			            unit.attack(enemy,emptyOptions(), 10000);
-			        } catch (CallbackAIException ex) {
+				try {
+			       unit.attack(enemy,emptyOptions(), 10000);
+			     } catch (CallbackAIException ex) {
 			        	AIFloat3 clippedPos = clipToMap(enemy.getPos());
 						
 						//When the move is done, the unit will become idle and attack
@@ -192,9 +199,11 @@ public class MyJavaAI extends OOAI implements AI {
 				        }
 				        
 			        }
-				}
 			}
+			_mutex.unlock();
+			
 		}
+		else{}
 
 		return 0; // signaling: OK
 	}
@@ -203,6 +212,7 @@ public class MyJavaAI extends OOAI implements AI {
 		
 		long seed = System.nanoTime();
 		List<Unit> enemies = this.clb.getEnemyUnits();
+		
 		
 		for(Unit unit: my_units){
 			Collections.shuffle(enemies, new Random(seed));
@@ -263,7 +273,7 @@ public class MyJavaAI extends OOAI implements AI {
 
 	@Override
 	public int unitIdle(Unit unit) {
-		sendTextMsg("Unit is idle ");
+		//sendTextMsg("Unit is idle ");
 		
 		try {
             //idle_units.get(0).attack(enemies.get(0),emptyOptions(), 10000);
@@ -286,17 +296,11 @@ public class MyJavaAI extends OOAI implements AI {
 
 	@Override
 	public int unitDestroyed(Unit unit, Unit attacker) {
+		sendTextMsg("enemy destroyed ");
 		
-		if(unit.getTeam() == this.clb.getGame().getMyTeam()) {
-			my_units.remove(unit);
-		}
-		else {
-			for(Unit myUnit: my_units){
-				List<Unit> currentTargets = unitTargets.get(myUnit);
-				currentTargets.remove(unit);
-				this.unitTargets.put(myUnit, currentTargets);
-			}
-		}
+		_mutex.lock();
+		this.my_units.remove(unit);
+		_mutex.unlock();
 		
 		return 0; // signaling: OK
 	}
@@ -338,6 +342,17 @@ public class MyJavaAI extends OOAI implements AI {
 
 	@Override
 	public int enemyDestroyed(Unit enemy, Unit attacker) {
+		sendTextMsg("enemy destroyed ");
+		
+		_mutex.lock();
+		for(Unit myUnit: this.my_units){
+			
+			List<Unit> currentTargets = this.unitTargets.get(myUnit);
+			currentTargets.remove(enemy);
+			this.unitTargets.put(myUnit, currentTargets);
+			
+		}
+		_mutex.unlock();
 		return 0; // signaling: OK
 	}
 
