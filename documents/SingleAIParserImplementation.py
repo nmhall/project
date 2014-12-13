@@ -7,10 +7,15 @@ class SingleAIGrammarParserImplementation(SingleAIGrammarParser):
             nameguard=nameguard,
             **kwargs
         )
-
+        
+# We don't actually want to override any of the default Exception behavior
 class IQException(Exception):
     pass
 
+# Semantics Class enforces the IQ Limitations for each unit type.
+# Each time a new rule is added, we raise an error if it exceeds the allowed
+# number for the unit.
+# Limitations are currently 2, 4, and 6.
 class SingleAIGrammarSemantics(object):
     def __init__(self):
         self.maxDumbRules = 2
@@ -68,6 +73,8 @@ class SingleAIGrammarSemantics(object):
             raise IQException("Too many rules supplied to double AI")
         return ast
 
+# Main stuff shamelessly copied from the Grako-generated file
+# SingleAIParser.py
 def main(filename, startrule, trace=False, whitespace=None, nameguard=None):
     import json
     with open(filename) as f:
