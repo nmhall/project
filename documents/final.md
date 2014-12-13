@@ -30,20 +30,54 @@ to communicate through their program.
 
 #### What is the basic computation that your language performs (i.e., what is the computational model)?
 
-
+The basic computation is matching a single user-supplied condition internally in a game, and
+having the AI behave according to the corresponding user-supplied behavior. These are combined
+together to form an actual AI capable of playing a simple RTS (admittedly probably not very well).
 
 #### What are the basic data structures in your DSL, if any? How does a the user create and manipulate data?
 
+The basic data structure is a rule, which is a set of conditions and a behavior to follow if
+those conditions are met within the game. These are combined to define the behavior for a
+category (formation, movement, or targeting), all three of which combine to define a single
+unit. A definition for each of the three units defines an AI.
+
 #### What are the basic control structures in your DSL, if any? How does the user specify or manipulate control flow?
+
+There is no real control flow in our language. The user simply supplies condition-based
+rules, which are checked against the current state of the game on a frame-by-frame
+basis.
 
 #### What kind(s) of input does a program in your DSL require? What kind(s) of output does a program produce?
 
+Our DSL requires a text input obeying our syntax. The output at the moment is a nicely
+structured AST in JSON format. In an ideal world, this would be passed into our actual
+AI program and re-interpreted as commands to the AI. However, time did not end up allowing
+for this to happen. At a design level, however, the true output is an actual AI capable
+of playing our game.
+
 #### Error handling: How can programs go wrong, and how does your language communicate those errors to the user?
+
+Syntax errors simply fail to parse, and Grako (our chosen Python parser) produces pretty
+reasonable errors on syntax failure. If the user violates the IQ limits, we have our own
+post-processing which raises a meaningful exception alerting them to the issue.
 
 #### What tool support (e.g., error-checking, development environments) does your project provide?
 
+We have basically zero of that right now. User input is in a simple text file, which is
+then passed without any modification into the Grako-generated parser.
+
 #### Are there any other DSLs for this domain? If so, what are they, and how does your language compare to these other languages?
 
+To our knowledge, no DSLs exist for this domain. You could maybe argue that a framework
+like Spring contains a very large internal DSL for AI creation. However, there are two
+things which make our AI fundamentally different. First, the Spring AI system is extremely
+verbose, and is really a library in the sense that while it provides some new syntax,
+it doesn't really define its own syntax but instead simply defines a few methods you can
+call in Java. Second, our language is specifically designed and written to focus on
+strategic decision-making rather than implementation. Even if you were to count Spring's
+libraries as an internal DSL, it's not really in the same domain as ours. It allows a
+user to implement an AI agent, while we allow a user to describe the intended behavior
+of an AI in strategic, rather than game- or implementation-specific terms.
 
 #### Example program(s): Provide one or more examples that give the casual reader a good sense of your language. Include inputs and outputs. Think of this section as “Tutorial By Example”. You might combine this section with the previous one, i.e., use examples to help describe your language.
 
