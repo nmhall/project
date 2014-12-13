@@ -15,13 +15,14 @@ Panic, which freely distributed them as long as the source game was attributed.
 
 gamedata: This directory contains essential data about the nature of the game. 
     movedefs.lua defines how each unit in the game should move, what its collision 
-        radius should be, ect. 
+        radius should be, ect. More information here - http://springrts.com/wiki/Movedefs.lua.
     
     Armordefs.lua defines the different armor types that exist in the game. Specifically,
         it declares the amount of damage that different type weapon will do to each other
-        unit.
+        unit. More informaton here - http://springrts.com/wiki/Armordefs.lua.
     
     sidedata.lua defines the different playable factions that exist in a given game.
+    More information here - http://springrts.com/wiki/Sidedata.lua.
     
     Much more data exists about these files on the spring website! This Readme is only going
     to provide a short overview for each part of the game. 
@@ -32,7 +33,7 @@ game Kernel Panic.
 
 units: This directory contains definitions of all of the units that exist in the game. 
 Each lua file here defines a different unit, and outlines the different aspects of that 
-unit. More documentation can be found here.
+unit. More documentation can be found here - http://springrts.com/wiki/Gamedev:UnitDefs.
 
 
 The rest of the files in this directory were essentially unused in our game, but they
