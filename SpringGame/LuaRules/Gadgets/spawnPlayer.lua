@@ -55,7 +55,28 @@ end
 
 local function SpawnStartUnit(teamID)
 	local x,y,z = Spring.GetTeamStartPosition(teamID)
+	--AI
+	if teamID == 0 then
+		local unitID = Spring.CreateUnit("bug", x,y,z,0,teamID)
+		Spring.SetUnitAlwaysVisible(unitID,true)
+		Spring.SetUnitNeutral(unitID,false)
+	else
+		local unitID = Spring.CreateUnit("alice", x,y,z,0,teamID)
+		Spring.SetUnitAlwaysVisible(unitID,true)
+		Spring.SetUnitNeutral(unitID,false)
+		
+		local unitID = Spring.CreateUnit("alice", x + 128,y,z,0,teamID)
+		Spring.SetUnitAlwaysVisible(unitID,true)
+		Spring.SetUnitNeutral(unitID,false)
+		
+		local unitID = Spring.CreateUnit("alice", x - 128,y,z,0,teamID)
+		Spring.SetUnitAlwaysVisible(unitID,true)
+		Spring.SetUnitNeutral(unitID,false)
+	end
 	
+	
+	
+	--[[
 	--First Bit
 	local unitID = Spring.CreateUnit("bit", x, y, z, 0, teamID)
 	if unitID then
@@ -136,7 +157,7 @@ local function SpawnStartUnit(teamID)
 		Spring.SetUnitNeutral (unitID,false)
 		--Spring.SetUnitNoSelect(unitID, false)
 	end
-	
+	--]]
 end
 
 

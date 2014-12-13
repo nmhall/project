@@ -142,7 +142,7 @@ allyProximity = 'there are' number:number 'allies' proximity:proximity;
 
 proximity = 'adjacent' | 'close' | 'around';
 
-myHealth = 'health' comparison:comparison number:number;
+myHealth = 'my health' comparison:comparison number:number;
 
 enemyIQ = 'a nearby enemy has IQ' comparison:comparison number:number;
 
