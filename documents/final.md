@@ -378,11 +378,55 @@ JSON output.
 
 #### What host language did you use (i.e., in what language did you implement your DSL)? Why did you choose this host language (i.e., why is it well-suited for your language design)?
 
+Our host language for parsing of the user AI definition is Python. This was chosen for
+the convenience of using Grako to automatically generate a parser from a grammar in
+EBNF. The language in which our actual AI is Java, using a library that comes
+along with the Spring game engine. Our game is written in Lua.
+
 #### Is yours an external or an internal DSL (or some combination thereof)? Why is that the right design?
+
+Our DSL is external, written in a text file and parsed in Python as mentioned above.
+This is the right design decision because our goal is to allow the user to express
+strategic decisions rather than worry about implementation. For this reason, we wanted
+to give them a non-programming language way to express themselves without having the
+clutter of programming language artifacts. As can be seen in our example program, we
+do borrow heavily from the structure of programming languages for object-style
+definitions and what are essentially switch statements. However, our conditions and
+behaviors make a lot more sense when the user can simply express the strategies that
+they want, rather than thinking about calling methods or anything like that.
 
 #### Provide an overview of the architecture of your language: front, middle, and back-end, along with any technologies used to implement these components.
 
+Front-end is the text file facing the user, combined with Grako for parsing their
+input. Grako takes our language grammar in EBNF and automatically generates a
+Python file to act as a parser for the language. The grammar also allows you to
+control at a pretty impressive level the structure of the resulting AST, so that we
+can parse in a way that lends itself well to interpretation as AI instructions.
+
+In the middle, we have a layer of semantics to enforce our IQ limitations. Grako
+provides a very convenient way to do this while parsing, so that we can immediately
+fail and raise an appropriate exception if the user has given too many rules.
+
+At the back end, we have the Spring library-using code that defines our AI. Right
+now, our own behavior is implemented here. At full completion, we would have a lot
+of the same code combined with a method to read in and interpret the JSON AST as
+commands for the AI. We would then test whether the game conditions matched those
+in a user-given rule and take the appropriate action. Since there are a finite
+number of behaviors suppliable, we can easily write a general AI file which knows
+how to follow a user's behavior at any point in time. In addition to the AI back
+end, we have the code which actually defines the game and units for the Spring game
+engine. This is not as directly related to our language since the game can actually
+be played with human input rather than an AI controlling, but is part of the
+framework necessary for our language to work.
+
 #### “Parsing”: How does your DSL take a user program and turn it into something that can be executed? How do the data and control structures of your DSL connect to the underlying semantic model?
+
+As mentioned many times previously, our language is parsed using an
+automatically-generated parser in Python created by Grako from our EBNF grammar.
+The resulting AST preserves the concepts of different units, as well as the
+connection between conditions and behaviors. This allows any interpreting
+program (in particular, our AI) to semantically interpret that information as
+instructions about a particular unit's behavior at specific points in the game.
 
 #### Intermediate representation: What data structure(s) in the host language do you use to represent a program in your DSL?
 
