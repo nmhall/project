@@ -139,30 +139,20 @@ Int{
 
 Double{
 
-Formation{
+    Formation{
+        if my health > 70: tight formation
+        default: isolation
+    }
 
-  if my health > 70: tight formation
-  
-  default: isolation
-  
-}
-
-Movement{
-
-  if my health < 50: move away
-  
-  default: hold ground
-  
-}
-
-Targeting{
-
-  if a nearby enemy has IQ > 4: target smartest
-  
-  default: target lowest health
-  
-}
-
+    Movement{
+        if my health < 50: move away
+        default: hold ground
+    }
+    
+    Targeting{
+        if a nearby enemy has IQ > 4: target smartest
+        default: target lowest health
+    }
 }
 
 This example can also be found in SampleAI.txt. The output as a JSON representaiton of the
