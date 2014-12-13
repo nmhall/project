@@ -108,17 +108,13 @@ of an AI in strategic, rather than game- or implementation-specific terms.
 Here is what a legal AI definition might look like:
 
 Short{
-  Formation{
-  }
-
-  Movement{
-    if there are 3 enemies adjacent: move away
-  }
-
+Formation{
+}
+Movement{
+  if there are 3 enemies adjacent: move away
+}
 Targeting{
-
   default: target lowest health
-  
 }
 
 }
