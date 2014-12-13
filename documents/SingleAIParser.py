@@ -15,7 +15,7 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 from grako.parsing import graken, Parser
 
 
-__version__ = (2014, 12, 6, 23, 6, 53, 5)
+__version__ = (2014, 12, 13, 1, 21, 15, 5)
 
 __all__ = [
     'SingleAIGrammarParser',
@@ -889,7 +889,7 @@ class SingleAIGrammarParser(Parser):
 
     @graken()
     def _myHealth_(self):
-        self._token('health')
+        self._token('my health')
         self._comparison_()
         self.ast['comparison'] = self.last_node
         self._number_()
