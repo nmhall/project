@@ -11,12 +11,32 @@ choose from, we make it easy for them to take strategic concepts and make them a
 a more direct fashion than if they had to go through the full implementation process
 themselves.
 
+The essence of our language is the abstraction of the core elements of RTS AI design. We break 
+the core behaviors of units up into formation, movement, and targeting. These three abstract 
+classes are the only types of behavior necessary in a fully functioning AI. In addition to 
+providing a veriety of options for these core behaviors, we provide a series of universal 
+conditionals that can be used to decide when to engage in certain behaviors or change behavior. 
+We think that our language is a good fit for this domain because it allows the user to specify 
+the behaviors they want with as little overhead as possible.
+
+We chose to limit the number of lines per unit because we felt that this would force users to make meaningful trade-offs between different behaviors. In our minds, meaningful and transparent trade-offs are at the core of fun and competative gameplay. While our domain can be summerized as providing people with a way to control RTS AI, what we're really doing is providing people with a way to control RTS AI within the context of what we hope will be a fully functional game. This is why we chose to impose an IQ limit on units, becase we think it'll make the game much more enjoyable.
+
 ## Language design details: Give a high-level overview of your language's design. Be sure to answer the following questions:
 
 #### How does a user write programs in your language (e.g., do they type in commands, use a visual/graphical tool, speak, etc.)?
 
-A user fills in a skeleton text file with various rules for their units. This text file is
-passed to a parsing Python program.
+To write a program in our language, the user types their code into a text file using the syntax we've designed. Then, the user runs a python program to compile their code into an intermediate representation of the relevant data. From here, the Spring AI can read the data and represent the behavior of the AI they coded on the screen.
+
+More specifically, to write a program in our language the user abstracts the behavior they want 
+to see in their AI into the three previously mentioned categories. Once they've done that, they
+can specify the behaviors they want for each of these categories in addition to the conditions 
+under which they want their AI to deviate from those behaviors. After writing a program, if the
+user is able to get their code to compile it should describe a fully functioning Spring AI. One
+of the interesting things about our domain is that it is impossible for programs to crash during
+runtime. If a program compiles, and subset of the flags that get passed to the AI will function.
+Obviously the AI may not have the user's idealized behavior if they made mistakes when they coded 
+it, but things like segmentation faults don't exist in our domain (at least given the way we've 
+decided to implement our language).
 
 #### How does the syntax of your language help users write programs more easily than the syntax of a general-purpose language?
 
@@ -27,12 +47,16 @@ by allowing more sentence-like rules without unnecessary parentheses, dots, or o
 artifacts of programming languages that have no actual bearing on what the user is trying
 to communicate through their program.
 
+The syntax of our language helps programmers far more than a general purpose programming language.
+Ultimately, there is nothing like our language in existance. It is possible for a user to write 
+an AI for spring in a "general purpose programming language" like Java. But it would be incredibly
+inconvenient. 
 
 #### What is the basic computation that your language performs (i.e., what is the computational model)?
 
 The basic computation is matching a single user-supplied condition internally in a game, and
 having the AI behave according to the corresponding user-supplied behavior. These are combined
-together to form an actual AI capable of playing a simple RTS (admittedly probably not very well).
+together to form an actual AI capable of playing a simple RTS.
 
 #### What are the basic data structures in your DSL, if any? How does a the user create and manipulate data?
 
