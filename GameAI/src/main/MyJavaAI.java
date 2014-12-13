@@ -74,7 +74,7 @@ public class MyJavaAI extends OOAI implements AI {
 	private List<Unit> enemies = new ArrayList<Unit>();
 	private List<Unit> my_units = new ArrayList<Unit>();
 	private final Lock _mutex = new ReentrantLock(true);
-	private int NUMBER_OF_ENEMIES = 3;
+	private int NUMBER_OF_ENEMIES = 9;
 	
 	
 	private Hashtable<Unit, List<Unit>> unitTargets = new Hashtable<Unit, List<Unit>>();
@@ -170,28 +170,35 @@ public class MyJavaAI extends OOAI implements AI {
 	@Override
 	public int update(int frame) {
 		
-		//Reset the list of enemies every 100 frames
+		//If the units haven't been assigned enemies yet, and all of the enemy units 
+		//have been loaded into the game, assign a random permutation of enemies to
+		//each friendly unit and attack them in that order.
 		if(!setupEnemies){
-			//THIS IS A HACK 
 			if((this.clb.getEnemyUnits().size() == this.NUMBER_OF_ENEMIES) && (!setupEnemies)){
 				sendTextMsg("Assigning enemies");
 				assignEnemies();
 			}
 		}
+		
+		//If enemies have been assigned...
 		else if(this.clb.getEnemyUnits().size() != 0)
 		{	
 			
-			_mutex.lock();
-			for(Unit unit : this.my_units) {
-				//sendTextMsg(String.valueOf(this.unitTargets.get(unit).size()));
-				Unit enemy = this.unitTargets.get(unit).get(0);
-				
-				try {
-			       unit.attack(enemy,emptyOptions(), 10000);
-			     } catch (CallbackAIException ex) {
+			//Only give new commands every four frames to avoid frame skipping (when the time
+			//it takes to do the computation is longer than the time it takes for a frame).
+			if(frame % 4 == 0){
+				//Ensure that the unit lists are in the critical section (not sure if this is necessary)
+				_mutex.lock();
+				for(Unit unit : this.my_units) {
+					//Get the current enemy
+					Unit enemy = this.unitTargets.get(unit).get(0);
+					
+					//Try to attack, if you can't move closer
+					try {
+						unit.attack(enemy,emptyOptions(), 10000);
+					} catch (CallbackAIException ex) {
 			        	AIFloat3 clippedPos = clipToMap(enemy.getPos());
 						
-						//When the move is done, the unit will become idle and attack
 						try {
 				            unit.moveTo(clippedPos, emptyOptions(), 10000);
 				        } catch (CallbackAIException ex1) {
@@ -199,15 +206,17 @@ public class MyJavaAI extends OOAI implements AI {
 				        }
 				        
 			        }
+				}
+				_mutex.unlock();
 			}
-			_mutex.unlock();
-			
 		}
 		else{}
 
 		return 0; // signaling: OK
 	}
 	
+	//Helper function that assigns a random list of enemies to
+	//each allied unit
 	private int assignEnemies() {
 		
 		long seed = System.nanoTime();
@@ -230,57 +239,24 @@ public class MyJavaAI extends OOAI implements AI {
 
 	@Override
 	public int unitCreated(Unit unit, Unit builder) {
-
+		//When a unit is created, add it to the list
 		int ret = sendTextMsg("unitCreated: " + unit.toString() + " team " + unit.getTeam() );
 		
 		if(unit.getTeam() == this.clb.getGame().getMyTeam()){
 			my_units.add(unit);
 		}
 		
-
-		final List<Unit> enemies = this.clb.getEnemyUnits();
-		//enemyBit = enemies.get(0);
-		
-		//sendTextMsg("got enemies there are " + enemies.size());
-		/*
-		AIFloat3 clippedPos = clipToMap(enemyBit.getPos());
-		clippedPos.x += 128;
-		sendTextMsg("trying to move");
-		
-		try {
-            unit.moveTo(clippedPos, emptyOptions(), 10000);
-        } catch (CallbackAIException ex) {
-            sendTextMsg(ex.getMessage());
-        }
-		*/
-		/*
-		List<UnitDef> buildOptions = unit.getDef().getBuildOptions();
-		for (UnitDef unitDef : buildOptions) {
-			sendTextMsg("\tbuildOption x: " + unitDef.getName() + "\t" + unitDef.getHumanName() + "\t" + unitDef.toString() + "\t" + unitDef.hashCode());
-		}
-	*/
 		return ret;
 	}
 
 	@Override
 	public int unitFinished(Unit unit) {
-		/*
-		int ret = sendTextMsg("unitFinshed: " + unit.toString());
-		sendTextMsg("unitFinished def: " + unit.getDef().getName());
-		*/
+
 		return 0; // signaling: OK
 	}
 
 	@Override
-	public int unitIdle(Unit unit) {
-		//sendTextMsg("Unit is idle ");
-		
-		try {
-            //idle_units.get(0).attack(enemies.get(0),emptyOptions(), 10000);
-        } catch (CallbackAIException ex) {
-            sendTextMsg(ex.getMessage());
-        }
-		
+	public int unitIdle(Unit unit) {	
 		return 0;
 	}
 
@@ -296,8 +272,7 @@ public class MyJavaAI extends OOAI implements AI {
 
 	@Override
 	public int unitDestroyed(Unit unit, Unit attacker) {
-		sendTextMsg("enemy destroyed ");
-		
+		//When we lose a unit, remove it from our list of allies
 		_mutex.lock();
 		this.my_units.remove(unit);
 		_mutex.unlock();
@@ -342,8 +317,9 @@ public class MyJavaAI extends OOAI implements AI {
 
 	@Override
 	public int enemyDestroyed(Unit enemy, Unit attacker) {
-		sendTextMsg("enemy destroyed ");
 		
+		//When we destroy a unit, remove it from the target lists of all
+		//our units. 
 		_mutex.lock();
 		for(Unit myUnit: this.my_units){
 			
