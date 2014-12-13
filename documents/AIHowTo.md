@@ -19,25 +19,25 @@ condition, which will kick in if nothing else for that category matches.
 ## Conditions ##
 Now that you have a sense of what rules look like, you need to know what conditions you can
 use. You always start with 'if', followed by one or more things from the following list:
-  * 'there are <number> enemies <proximity>'
-  * 'there are <number> allies <proximity>'
-  * 'my health <comparison> <number>'
-  * 'a nearby enemy has IQ <comparison> <number>'
-  * 'a nearby enemy has health <comparison> <number>'
-  * 'a nearby enemy has range <comparison> <number>'
+  * 'there are \<number\> enemies \<proximity\>'
+  * 'there are \<number\> allies \<proximity\>'
+  * 'my health \<comparison\> \<number\>'
+  * 'a nearby enemy has IQ \<comparison\> \<number\>'
+  * 'a nearby enemy has health \<comparison\> \<number\>'
+  * 'a nearby enemy has range \<comparison\> \<number\>'
 
 Proximity is either 'adjacent', 'close', or 'around'. Adjacent refers to enemies or allies
 that are very near, while close refers to other units in a larger radius and around will
 include an even bigger area.
 
-A comparison is either '<' or '>', and they mean exactly what you think.
+A comparison is either '\<' or '\>', and they mean exactly what you think.
 
 Use 0 or any positive integer for numbers.
 
 You can combine more than one condition with 'and', so that an example condition might look like
 this:
 
-if there are 3 enemies adjacent and a nearby enemy has health < 50
+if there are 3 enemies adjacent and a nearby enemy has health \< 50
 
 ## Behaviors ##
 Once you have a condition, you need to tell your unit what to do if that condition is met.
@@ -83,11 +83,11 @@ targeting highest range will shoot the enemy with the longest attack range.
 ## Examples ##
 That's it! Now you know how to write AIs using our language. Here are some example rules:
 
-if my health < 50: move away
+if my health \< 50: move away
 
 if there are 3 enemies adjacent: target closest
 
-if a nearby enemy has IQ > 5: target smartest
+if a nearby enemy has IQ \> 5: target smartest
 
 if there are 4 allies nearby: tight formation
 
