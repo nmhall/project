@@ -13,7 +13,7 @@ bitmaps: This file contains the bitmaps used to display visual effects, e.g. the
 used for movement and weapon firing. Most of these bitmaps were taken from the game Kernel
 Panic, which freely distributed them as long as the source game was attributed.
 
-gamedata: This directory contains essential data about the nature of the game. 
+gamedata: This directory contains essential data about the nature of the game. The subdirectories are:
     
     movedefs.lua defines how each unit in the game should move, what its collision 
         radius should be, ect. More information here - http://springrts.com/wiki/Movedefs.lua.
