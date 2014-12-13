@@ -81,6 +81,299 @@ of an AI in strategic, rather than game- or implementation-specific terms.
 
 #### Example program(s): Provide one or more examples that give the casual reader a good sense of your language. Include inputs and outputs. Think of this section as “Tutorial By Example”. You might combine this section with the previous one, i.e., use examples to help describe your language.
 
+Here is what a legal AI definition might look like:
+
+Short{
+
+Formation{
+
+}
+
+Movement{
+
+  if there are 3 enemies adjacent: move away
+  
+}
+
+Targeting{
+
+  default: target lowest health
+  
+}
+
+}
+
+Int{
+
+Formation{
+
+  if there are 4 allies adjacent: tight formation
+  
+}
+
+Movement{
+
+  if a nearby enemy has health < 50 and my health > 60: move away
+  
+  if my health < 20: hold ground
+  
+}
+
+Targeting{
+
+  default: target closest
+  
+}
+
+}
+
+Double{
+
+Formation{
+
+  if my health > 70: tight formation
+  
+  default: isolation
+  
+}
+
+Movement{
+
+  if my health < 50: move away
+  
+  default: hold ground
+  
+}
+
+Targeting{
+
+  if a nearby enemy has IQ > 4: target smartest
+  
+  default: target lowest health
+  
+}
+
+}
+
+This example can also be found in SampleAI.txt. The output as a JSON representaiton of the
+AST can be found in SampleOutput.txt (along with Grako's String representation of the tree),
+and looks like this:
+
+{
+  "dumbAI": {
+    "singleDumbAI": {
+      "formationDef": {
+        "formationRules": null
+      }, 
+      "movementDef": {
+        "movementRules": {
+          "extraMovementRules": {
+            "movementRule": {
+              "conditional": {
+                "condition": {
+                  "enemyProximity": {
+                    "number": "3", 
+                    "proximity": "adjacent"
+                  }, 
+                  "allyProximity": null, 
+                  "myHealth": null, 
+                  "enemyIQ": null, 
+                  "enemyHealth": null, 
+                  "enemyRange": null
+                }
+              }, 
+              "movement": {
+                "movement": "move away"
+              }
+            }
+          }, 
+          "defaultMovement": null
+        }
+      }, 
+      "targetingDef": {
+        "targetingRules": {
+          "defaultTargeting": {
+            "targeting": "target lowest health"
+          }, 
+          "extraTargetingRules": null
+        }
+      }
+    }
+  }, 
+  "mediumAI": {
+    "singleMediumAI": {
+      "formationDef": {
+        "formationRules": {
+          "extraFormationRules": {
+            "formationRule": {
+              "conditional": {
+                "condition": {
+                  "allyProximity": {
+                    "number": "4", 
+                    "proximity": "adjacent"
+                  }, 
+                  "enemyProximity": null, 
+                  "myHealth": null, 
+                  "enemyIQ": null, 
+                  "enemyHealth": null, 
+                  "enemyRange": null
+                }
+              }, 
+              "formation": {
+                "formation": "tight formation"
+              }
+            }
+          }, 
+          "defaultFormation": null
+        }
+      }, 
+      "movementDef": {
+        "movementRules": {
+          "extraMovementRules": {
+            "movementRule": [
+              {
+                "conditional": {
+                  "condition": {
+                    "enemyHealth": {
+                      "comparison": "<", 
+                      "number": "50"
+                    }, 
+                    "enemyProximity": null, 
+                    "allyProximity": null, 
+                    "myHealth": null, 
+                    "enemyIQ": null, 
+                    "enemyRange": null
+                  }
+                }, 
+                "movement": {
+                  "movement": "move away"
+                }
+              }, 
+              {
+                "conditional": {
+                  "condition": {
+                    "myHealth": {
+                      "comparison": "<", 
+                      "number": "20"
+                    }, 
+                    "enemyProximity": null, 
+                    "allyProximity": null, 
+                    "enemyIQ": null, 
+                    "enemyHealth": null, 
+                    "enemyRange": null
+                  }
+                }, 
+                "movement": {
+                  "movement": "hold ground"
+                }
+              }
+            ]
+          }, 
+          "defaultMovement": null
+        }
+      }, 
+      "targetingDef": {
+        "targetingRules": {
+          "defaultTargeting": {
+            "targeting": "target closest"
+          }, 
+          "extraTargetingRules": null
+        }
+      }
+    }
+  }, 
+  "smartAI": {
+    "singleSmartAI": {
+      "formationDef": {
+        "formationRules": {
+          "extraFormationRules": {
+            "formationRule": {
+              "conditional": {
+                "condition": {
+                  "myHealth": {
+                    "comparison": ">", 
+                    "number": "70"
+                  }, 
+                  "enemyProximity": null, 
+                  "allyProximity": null, 
+                  "enemyIQ": null, 
+                  "enemyHealth": null, 
+                  "enemyRange": null
+                }
+              }, 
+              "formation": {
+                "formation": "tight formation"
+              }
+            }
+          }, 
+          "defaultFormation": {
+            "formation": "isolation"
+          }
+        }
+      }, 
+      "movementDef": {
+        "movementRules": {
+          "extraSmartMovementRules": {
+            "movementRule": {
+              "conditional": {
+                "condition": {
+                  "myHealth": {
+                    "comparison": "<", 
+                    "number": "50"
+                  }, 
+                  "enemyProximity": null, 
+                  "allyProximity": null, 
+                  "enemyIQ": null, 
+                  "enemyHealth": null, 
+                  "enemyRange": null
+                }
+              }, 
+              "movement": {
+                "movement": "move away"
+              }
+            }
+          }, 
+          "defaultMovement": {
+            "movement": "hold ground"
+          }, 
+          "extraMovementRules": null
+        }
+      }, 
+      "targetingDef": {
+        "targetingRules": {
+          "extraTargetingRules": {
+            "targetingRule": {
+              "conditional": {
+                "condition": {
+                  "enemyIQ": {
+                    "comparison": ">", 
+                    "number": "4"
+                  }, 
+                  "enemyProximity": null, 
+                  "allyProximity": null, 
+                  "myHealth": null, 
+                  "enemyHealth": null, 
+                  "enemyRange": null
+                }
+              }, 
+              "targeting": {
+                "targeting": "target smartest"
+              }
+            }
+          }, 
+          "defaultTargeting": {
+            "targeting": "target lowest health"
+          }
+        }
+      }
+    }
+  }
+}
+
+Unfortunately, there are a lot of nulls in the output due to some artifacts from
+how the generated parser works, but the user would never be actual subjected to this
+JSON output.
+
 ## Language implementation: Describe your implementation. In particular, answer the following questions:
 
 #### What host language did you use (i.e., in what language did you implement your DSL)? Why did you choose this host language (i.e., why is it well-suited for your language design)?
