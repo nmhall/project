@@ -122,6 +122,7 @@ Short{
 }
 
 Int{
+
     Formation{
         if there are 4 allies adjacent: tight formation
     }
