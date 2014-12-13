@@ -19,12 +19,12 @@ condition, which will kick in if nothing else for that category matches.
 ## Conditions ##
 Now that you have a sense of what rules look like, you need to know what conditions you can
 use. You always start with 'if', followed by one or more things from the following list:
-  'there are <number> enemies <proximity>'
-  'there are <number> allies <proximity>'
-  'my health <comparison> <number>'
-  'a nearby enemy has IQ <comparison> <number>'
-  'a nearby enemy has health <comparison> <number>'
-  'a nearby enemy has range <comparison> <number>'
+  * 'there are <number> enemies <proximity>'
+  * 'there are <number> allies <proximity>'
+  * 'my health <comparison> <number>'
+  * 'a nearby enemy has IQ <comparison> <number>'
+  * 'a nearby enemy has health <comparison> <number>'
+  * 'a nearby enemy has range <comparison> <number>'
 
 Proximity is either 'adjacent', 'close', or 'around'. Adjacent refers to enemies or allies
 that are very near, while close refers to other units in a larger radius and around will
